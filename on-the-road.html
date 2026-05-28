@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On the Road — Gripsters Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--terracotta); text-decoration: none; }
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--dusty); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; transition: background 0.2s !important; }
+.nav-cta:hover { background: #a8501f !important; }
+
+/* ── MASTHEAD ── */
+.masthead {
+  padding: 9rem 5rem 5rem;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+.masthead-inner { position: relative; z-index: 1; max-width: 780px; }
+.masthead-kicker {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+}
+.masthead-kicker::before { content: ''; width: 2rem; height: 1px; background: var(--gold); }
+.masthead h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 900; line-height: 0.95;
+  color: var(--cream); letter-spacing: -0.03em;
+  margin-bottom: 1.2rem;
+}
+.masthead h1 em { font-style: italic; color: var(--gold); }
+.masthead-sub {
+  font-family: 'Lora', serif;
+  font-style: italic; font-size: 1.15rem;
+  color: rgba(245,240,232,0.5); max-width: 52ch; line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.masthead-meta {
+  font-size: 0.8rem; color: rgba(245,240,232,0.3);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+/* ── FEATURED POST ── */
+.featured-section { padding: 4rem 5rem 2rem; }
+
+.featured-post {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border-radius: 1.5rem; overflow: hidden;
+  background: white; border: 1px solid var(--border);
+  box-shadow: 0 8px 40px rgba(26,18,8,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none; color: inherit;
+}
+.featured-post:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(26,18,8,0.12); }
+
+.featured-image {
+  position: relative; min-height: 420px; overflow: hidden; background: var(--warm);
+}
+.featured-image img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.5s ease;
+}
+.featured-post:hover .featured-image img { transform: scale(1.03); }
+
+/* Placeholder styling when no image */
+.img-placeholder {
+  width: 100%; height: 100%; min-height: 420px;
+  background: linear-gradient(135deg, var(--warm) 0%, rgba(201,168,76,0.2) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.8rem; color: var(--dusty);
+}
+.img-placeholder .placeholder-icon { font-size: 3rem; opacity: 0.4; }
+.img-placeholder .placeholder-text { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; }
+.img-placeholder .placeholder-hint { font-size: 0.75rem; opacity: 0.35; font-style: italic; }
+
+.featured-badge {
+  position: absolute; top: 1.2rem; left: 1.2rem;
+  background: var(--terracotta); color: white;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 0.75rem; border-radius: 2rem;
+}
+
+.featured-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+.post-region {
+  font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.post-region::before { content: ''; width: 1rem; height: 1px; background: var(--terracotta); }
+.featured-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 900; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 1rem;
+}
+.featured-content h2 em { font-style: italic; color: var(--terracotta); }
+.post-excerpt {
+  font-family: 'Lora', serif; font-size: 1rem; line-height: 1.75;
+  color: var(--dusty); margin-bottom: 1.8rem; font-weight: 400;
+}
+.post-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; }
+.post-byline { font-size: 0.82rem; color: var(--dusty); }
+.post-byline strong { color: var(--ink); font-weight: 500; }
+.read-link {
+  font-size: 0.88rem; font-weight: 500; color: var(--terracotta);
+  display: flex; align-items: center; gap: 0.4rem; transition: gap 0.2s;
+}
+.featured-post:hover .read-link { gap: 0.7rem; }
+.post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.tag {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+  background: var(--light-sage); color: var(--sage);
+  padding: 0.22rem 0.65rem; border-radius: 2rem;
+}
+
+/* ── GRID ── */
+.grid-section { padding: 2rem 5rem 5rem; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+.section-count { font-size: 0.82rem; color: var(--dusty); }
+
+.posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; }
+
+.post-card {
+  background: white; border-radius: 1.2rem; overflow: hidden;
+  border: 1px solid var(--border); text-decoration: none; color: inherit;
+  transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column;
+}
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(26,18,8,0.1); }
+
+.card-image {
+  height: 220px; overflow: hidden; background: var(--warm); position: relative; flex-shrink: 0;
+}
+.card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+.post-card:hover .card-image img { transform: scale(1.05); }
+.card-image .img-placeholder { min-height: 220px; }
+
+.card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-body .post-region { margin-bottom: 0.5rem; }
+.card-body h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
+  line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em;
+}
+.card-body h3 em { font-style: italic; color: var(--terracotta); }
+.card-excerpt {
+  font-family: 'Lora', serif; font-size: 0.88rem; line-height: 1.7;
+  color: var(--dusty); margin-bottom: 1.2rem; flex: 1;
+}
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.card-date { font-size: 0.76rem; color: var(--dusty); }
+
+/* ── COMING SOON CARD ── */
+.coming-soon {
+  background: var(--ink); border-radius: 1.2rem; padding: 2rem;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 340px; border: 1px solid rgba(245,240,232,0.08);
+  position: relative; overflow: hidden;
+}
+.coming-soon::before {
+  content: '';
+  position: absolute; bottom: -2rem; right: -2rem;
+  width: 10rem; height: 10rem; border-radius: 50%;
+  background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.1);
+}
+.coming-soon-tag { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.coming-soon h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 0.6rem; }
+.coming-soon h3 em { font-style: italic; color: var(--gold); }
+.coming-soon p { font-size: 0.82rem; color: rgba(245,240,232,0.4); line-height: 1.6; }
+
+/* ── NEWSLETTER STRIP ── */
+.newsletter-strip {
+  background: var(--warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 3rem 5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.newsletter-copy h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+.newsletter-copy p { font-size: 0.88rem; color: var(--dusty); }
+.newsletter-form { display: flex; gap: 0.6rem; }
+.newsletter-input {
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  padding: 0.75rem 1.1rem; border: 1.5px solid var(--border); border-radius: 2rem;
+  background: white; color: var(--ink); outline: none; min-width: 240px; transition: border-color 0.2s;
+}
+.newsletter-input:focus { border-color: var(--terracotta); }
+.newsletter-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+  background: var(--terracotta); color: white; border: none; border-radius: 2rem;
+  padding: 0.75rem 1.5rem; cursor: pointer; transition: background 0.2s;
+  white-space: nowrap;
+}
+.newsletter-btn:hover { background: #a8501f; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); color: rgba(245,240,232,0.45);
+  padding: 3rem 5rem; display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.84rem;
+}
+footer .logo { color: var(--cream); font-size: 1.2rem; }
+footer a { color: rgba(245,240,232,0.45); text-decoration: none; }
+footer a:hover { color: var(--cream); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .masthead { padding: 7rem 2rem 3rem; }
+  .featured-section, .grid-section { padding: 2rem 1.5rem; }
+  .featured-post { grid-template-columns: 1fr; }
+  .featured-image { min-height: 280px; }
+  .newsletter-strip { padding: 2rem 1.5rem; flex-direction: column; }
+  .newsletter-form { flex-direction: column; width: 100%; }
+  .newsletter-input { min-width: auto; }
+  footer { padding: 2rem; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="gripsters-guide.html" class="logo">Gripsters<span>Guide</span></a>
+  <ul class="nav-links">
+    <li><a href="gripsters-guide.html">Plan a Trip</a></li>
+    <li><a href="on-the-road.html" class="active">On the Road</a></li>
+    <li><a href="gripsters-guide.html#landing-how">How It Works</a></li>
+    <li><a href="gripsters-guide.html" class="nav-cta">Start Planning</a></li>
+  </ul>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-kicker">A Gripsters Guide journal</div>
+    <h1>On the<br><em>Road.</em></h1>
+    <p class="masthead-sub">"Nothing behind me, everything ahead of me, as is ever so on the road." Real trips, real people, real places — no package tours, no pretending.</p>
+    <div class="masthead-meta">Independent travel stories from Gripsters around the world</div>
+  </div>
+</header>
+
+<!-- FEATURED POST -->
+<section class="featured-section">
+  <a href="post-switzerland.html" class="featured-post">
+    <div class="featured-image">
+      <!--
+        REPLACE THIS COMMENT WITH YOUR IMAGE:
+        <img src="your-switzerland-hero.jpg" alt="Switzerland mountain village">
+
+        Image tips:
+        - Landscape orientation works best here
+        - Aim for 1200×800px or larger
+        - File name: switzerland-hero.jpg (keep in same folder)
+      -->
+      <div class="img-placeholder">
+        <div class="placeholder-icon">🏔️</div>
+        <div class="placeholder-text">Switzerland</div>
+        <div class="placeholder-hint">Replace with your hero photo</div>
+      </div>
+      <div class="featured-badge">Latest Story</div>
+    </div>
+    <div class="featured-content">
+      <div class="post-region">Switzerland · Central Europe</div>
+      <h2>Slow trains &amp; <em>sharp peaks:</em><br>Three weeks through Switzerland</h2>
+      <div class="post-tags">
+        <span class="tag">Alpine</span>
+        <span class="tag">Rail travel</span>
+        <span class="tag">Food & wine</span>
+        <span class="tag">Villages</span>
+      </div>
+      <p class="post-excerpt">Nobody told us the cheese fondue in Gruyères would be this good. Or that the 7:14am train from Interlaken to Lauterbrunnen, mist still clinging to the valley floor, would be the single best hour of the entire trip.</p>
+      <div class="post-footer">
+        <div class="post-byline">By <strong>The Gripsters</strong> · June 2025 · 12 min read</div>
+        <div class="read-link">Read the story →</div>
+      </div>
+    </div>
+  </a>
+</section>
+
+<!-- ALL STORIES GRID -->
+<section class="grid-section">
+  <div class="section-header">
+    <div class="section-title">All Stories</div>
+    <div class="section-count">1 story published · more on the way</div>
+  </div>
+
+  <div class="posts-grid">
+
+    <!-- POST CARD: Switzerland -->
+    <a href="post-switzerland.html" class="post-card">
+      <div class="card-image">
+        <!--
+          REPLACE WITH:
+          <img src="switzerland-card.jpg" alt="Swiss village">
+        -->
+        <div class="img-placeholder">
+          <div class="placeholder-icon">🏔️</div>
+          <div class="placeholder-text">Switzerland</div>
+          <div class="placeholder-hint">Replace with your photo</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="post-region">Switzerland</div>
+        <h3>Slow trains &amp; <em>sharp peaks</em></h3>
+        <p class="card-excerpt">Three weeks of mountain passes, fondue villages, and first-class rail cards — independent Switzerland done properly.</p>
+        <div class="post-tags"><span class="tag">Alpine</span><span class="tag">Rail</span></div>
+        <div class="card-footer">
+          <div class="card-date">June 2025 · 12 min</div>
+          <div class="read-link" style="font-size:0.82rem">Read →</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- COMING SOON: Next trip teaser -->
+    <div class="coming-soon">
+      <div class="coming-soon-tag">Coming soon</div>
+      <h3>Where will the<br><em>road lead next?</em></h3>
+      <p>Another trip is being written up. Subscribe below to be the first to read it when it lands.</p>
+    </div>
+
+    <!-- COMING SOON: Another teaser -->
+    <div class="coming-soon" style="background: var(--warm); border-color: var(--border);">
+      <div class="coming-soon-tag" style="color:var(--terracotta)">Your story here</div>
+      <h3 style="color:var(--ink)">Been somewhere<br><em>extraordinary?</em></h3>
+      <p style="color:var(--dusty)">Gripsters Guide welcomes stories from fellow independent travellers. Get in touch.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-strip">
+  <div class="newsletter-copy">
+    <h3>Get new stories in your inbox</h3>
+    <p>No spam. Just new posts, when they're ready — usually every few weeks.</p>
+  </div>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="your@email.com">
+    <button class="newsletter-btn">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="gripsters-guide.html" class="logo">Gripsters<span style="font-style:italic;color:rgba(245,240,232,0.45)">Guide</span></a>
+  <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">
+    <a href="gripsters-guide.html">Plan a Trip</a>
+    <a href="on-the-road.html">On the Road</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+  <div>© 2026 Gripsters Guide</div>
+</footer>
+
+</body>
+</html>

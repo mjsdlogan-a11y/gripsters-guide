@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gripsters Guide — Travel Your Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   SHARED TOKENS
+═══════════════════════════════════════ */
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --terracotta-light: rgba(196,98,45,0.1);
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+  --selected-bg: rgba(196,98,45,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+/* ═══════════════════════════════════════
+   VIEW SYSTEM — only one view shown at a time
+═══════════════════════════════════════ */
+.view { display: none; }
+.view.active { display: block; }
+#view-planner.active { display: flex; }
+
+/* ═══════════════════════════════════════
+   SHARED NAV
+═══════════════════════════════════════ */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+  transition: opacity 0.3s;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--terracotta); letter-spacing: -0.02em;
+  cursor: pointer;
+}
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.9rem; font-weight: 500; color: var(--dusty);
+  text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--terracotta); }
+.nav-cta {
+  background: var(--terracotta) !important; color: white !important;
+  padding: 0.6rem 1.4rem; border-radius: 2rem;
+  transition: background 0.2s, transform 0.2s !important;
+  cursor: pointer;
+}
+.nav-cta:hover { background: #a8501f !important; transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════
+   LANDING PAGE
+═══════════════════════════════════════ */
+#view-landing { min-height: 100vh; }
+
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 5rem; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(122,158,126,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(196,98,45,0.08) 0%, transparent 60%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; right: -8rem; top: 50%; transform: translateY(-50%);
+  width: 55vw; height: 55vw; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(122,158,126,0.2), rgba(201,168,76,0.15));
+  border: 1px solid rgba(122,158,126,0.2);
+}
+.hero-left {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 4rem 3rem 4rem 5rem;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.5rem;
+}
+.hero-tag::before { content: ''; width: 2rem; height: 1px; background: var(--terracotta); }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.05;
+  font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.02em;
+}
+h1 em { font-style: italic; color: var(--terracotta); }
+.hero-sub {
+  font-size: 1.15rem; line-height: 1.7; color: var(--dusty);
+  max-width: 44ch; margin-bottom: 2.5rem; font-weight: 300;
+}
+.hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--terracotta); color: white;
+  padding: 1rem 2.2rem; border-radius: 3rem;
+  font-size: 1rem; font-weight: 500; text-decoration: none;
+  border: none; cursor: pointer; transition: all 0.25s; display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: #a8501f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,98,45,0.3); }
+.btn-ghost {
+  color: var(--ink); font-size: 0.95rem; font-weight: 500;
+  text-decoration: none; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 0.4rem; transition: gap 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-ghost:hover { gap: 0.8rem; color: var(--terracotta); }
+.hero-proof {
+  margin-top: 3.5rem; display: flex; align-items: center; gap: 1.5rem;
+  padding-top: 2rem; border-top: 1px solid rgba(140,123,107,0.2);
+}
+.proof-stat { text-align: center; }
+.proof-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--terracotta); }
+.proof-label { font-size: 0.78rem; color: var(--dusty); letter-spacing: 0.04em; }
+.proof-divider { width: 1px; height: 2.5rem; background: rgba(140,123,107,0.25); }
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 4rem 4rem 2rem;
+}
+.card-stack { position: relative; width: 100%; max-width: 400px; }
+.feature-card {
+  background: white; border-radius: 1.5rem; padding: 1.8rem;
+  box-shadow: 0 4px 24px rgba(26,18,8,0.08);
+  border: 1px solid rgba(196,98,45,0.08); position: relative;
+}
+.feature-card + .feature-card { margin-top: 1rem; }
+.card-icon {
+  width: 2.8rem; height: 2.8rem; background: var(--light-sage);
+  border-radius: 0.8rem; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 0.8rem;
+}
+.feature-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+.feature-card p { font-size: 0.88rem; color: var(--dusty); line-height: 1.5; }
+.card-badge {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  background: var(--light-sage); color: var(--sage);
+  font-size: 0.72rem; font-weight: 500;
+  padding: 0.25rem 0.6rem; border-radius: 1rem; letter-spacing: 0.04em;
+}
+
+/* Landing sections */
+.landing-section { padding: 6rem 5rem; }
+.section-tag {
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.section-tag::before { content: ''; width: 1.5rem; height: 1px; background: var(--terracotta); }
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900;
+  line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem;
+}
+.how { background: var(--ink); color: var(--cream); }
+.how h2 { color: var(--cream); }
+.how .section-tag { color: var(--gold); }
+.how .section-tag::before { background: var(--gold); }
+.how-sub { font-size: 1.1rem; color: rgba(245,240,232,0.6); max-width: 50ch; margin-bottom: 3.5rem; font-weight: 300; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+.step {
+  padding: 2rem; background: rgba(245,240,232,0.05);
+  border: 1px solid rgba(245,240,232,0.1); border-radius: 1.2rem; transition: background 0.2s;
+}
+.step:hover { background: rgba(245,240,232,0.08); }
+.step-num {
+  font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900;
+  color: rgba(201,168,76,0.25); line-height: 1; margin-bottom: 1rem;
+}
+.step h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--cream); }
+.step p { font-size: 0.88rem; color: rgba(245,240,232,0.55); line-height: 1.6; }
+
+.for-you { background: var(--warm); }
+.for-you-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+.for-item {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: white; padding: 1.5rem; border-radius: 1rem;
+  border: 1px solid rgba(196,98,45,0.08); transition: transform 0.2s, box-shadow 0.2s;
+}
+.for-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,18,8,0.07); }
+.for-icon {
+  font-size: 1.5rem; flex-shrink: 0; width: 3rem; height: 3rem;
+  background: var(--light-sage); border-radius: 0.7rem; display: flex; align-items: center; justify-content: center;
+}
+.for-item h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 0.25rem; }
+.for-item p { font-size: 0.85rem; color: var(--dusty); line-height: 1.5; }
+
+.testimonials { background: var(--light-sage); }
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+.testimonial { background: white; padding: 2rem; border-radius: 1.2rem; border: 1px solid rgba(122,158,126,0.2); }
+.stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+.testimonial blockquote { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.05rem; line-height: 1.6; color: var(--ink); margin-bottom: 1.2rem; }
+.testimonial cite { font-size: 0.85rem; color: var(--dusty); font-style: normal; font-weight: 500; }
+
+.cta-band { background: var(--terracotta); color: white; text-align: center; padding: 6rem 5rem; }
+.cta-band h2 { color: white; font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1rem; }
+.cta-band p { font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 50ch; margin: 0 auto 2.5rem; font-weight: 300; }
+.btn-white {
+  background: white; color: var(--terracotta);
+  padding: 1rem 2.5rem; border-radius: 3rem;
+  font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block;
+  transition: all 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,18,8,0.2); }
+
+footer {
+  background: var(--ink); color: rgba(245,240,232,0.5); padding: 3rem 5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem;
+}
+footer .logo { color: var(--cream); font-size: 1.2rem; cursor: default; }
+footer a { color: rgba(245,240,232,0.5); text-decoration: none; }
+footer a:hover { color: var(--cream); }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════
+   ONBOARDING VIEW
+═══════════════════════════════════════ */
+#view-onboarding { min-height: 100vh; }
+.ob-shell { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; padding-top: 4.5rem; }
+
+.ob-sidebar {
+  background: var(--ink); padding: 2.5rem 2rem;
+  display: flex; flex-direction: column;
+  position: sticky; top: 4.5rem; height: calc(100vh - 4.5rem); overflow: hidden;
+}
+.ob-sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 0.5rem; }
+.ob-sidebar-sub { font-size: 0.82rem; color: rgba(245,240,232,0.4); line-height: 1.6; margin-bottom: 2.5rem; font-weight: 300; }
+.steps-nav { display: flex; flex-direction: column; gap: 0; }
+.step-indicator {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 0.7rem 0; cursor: pointer; position: relative;
+}
+.step-indicator::after {
+  content: ''; position: absolute; left: 1.05rem; top: 2.5rem; bottom: -0.1rem;
+  width: 1px; background: rgba(245,240,232,0.1);
+}
+.step-indicator:last-child::after { display: none; }
+.step-dot {
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  border: 1.5px solid rgba(245,240,232,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 600; color: rgba(245,240,232,0.3);
+  flex-shrink: 0; transition: all 0.3s; background: transparent;
+}
+.step-indicator.si-active .step-dot { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+.step-indicator.si-done .step-dot { background: var(--sage); border-color: var(--sage); color: white; }
+.step-indicator.si-done .step-dot-num { display: none; }
+.step-indicator.si-done .step-dot::after { content: '✓'; font-size: 0.8rem; }
+.step-info { padding-top: 0.2rem; }
+.step-label { font-size: 0.82rem; font-weight: 500; color: rgba(245,240,232,0.3); transition: color 0.3s; }
+.step-indicator.si-active .step-label { color: var(--cream); }
+.step-indicator.si-done .step-label { color: rgba(245,240,232,0.5); }
+.step-sublabel { font-size: 0.72rem; color: rgba(245,240,232,0.18); margin-top: 0.1rem; }
+.step-indicator.si-active .step-sublabel { color: rgba(245,240,232,0.4); }
+.ob-sidebar-footer {
+  margin-top: auto; padding-top: 1.5rem; border-top: 1px solid rgba(245,240,232,0.08);
+  font-size: 0.76rem; color: rgba(245,240,232,0.22); line-height: 1.6;
+}
+
+.ob-main { display: flex; flex-direction: column; padding: 2.5rem 3.5rem; max-width: 700px; }
+.ob-progress-bar { height: 3px; background: rgba(140,123,107,0.15); border-radius: 2px; margin-bottom: 2.5rem; overflow: hidden; }
+.ob-progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Step panels */
+.ob-panel { display: none; animation: panelIn 0.35s ease both; }
+.ob-panel.ob-active { display: block; }
+@keyframes panelIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: translateX(0); } }
+
+.panel-tag {
+  font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.panel-tag::before { content: ''; width: 1.2rem; height: 1px; background: var(--terracotta); }
+.panel-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 900; line-height: 1.15; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+.panel-title em { font-style: italic; color: var(--terracotta); }
+.panel-desc { font-size: 0.93rem; color: var(--dusty); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; max-width: 50ch; }
+
+/* Form elements */
+.field-group { margin-bottom: 1.4rem; }
+.field-label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.45rem; }
+.field-hint { font-size: 0.78rem; color: var(--dusty); margin-bottom: 0.4rem; font-weight: 300; }
+.text-input {
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  padding: 0.8rem 1.1rem; border: 1.5px solid var(--border); border-radius: 0.75rem;
+  background: white; color: var(--ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.text-input:focus { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(196,98,45,0.08); }
+.text-input::placeholder { color: var(--dusty); opacity: 0.5; }
+.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.7rem; margin-bottom: 0.5rem; }
+.tile-grid.wide { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.tile {
+  border: 1.5px solid var(--border); border-radius: 0.85rem; padding: 0.9rem 0.9rem 0.8rem;
+  cursor: pointer; background: white; transition: all 0.2s; text-align: left; position: relative; user-select: none;
+}
+.tile:hover { border-color: rgba(196,98,45,0.4); background: var(--terracotta-light); }
+.tile.selected { border-color: var(--terracotta); background: var(--selected-bg); }
+.tile.selected::after {
+  content: '✓'; position: absolute; top: 0.5rem; right: 0.6rem;
+  width: 1.2rem; height: 1.2rem; background: var(--terracotta); color: white;
+  border-radius: 50%; font-size: 0.6rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.tile-icon { font-size: 1.4rem; margin-bottom: 0.35rem; display: block; }
+.tile-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); line-height: 1.3; display: block; }
+.tile-desc { font-size: 0.73rem; color: var(--dusty); margin-top: 0.15rem; line-height: 1.4; display: block; }
+
+.slider-wrap { margin-bottom: 1.2rem; }
+.slider-labels { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--dusty); margin-top: 0.4rem; }
+.slider-value { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--terracotta); margin-bottom: 0.4rem; }
+input[type="range"] {
+  width: 100%; -webkit-appearance: none; height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--terracotta) 0%, var(--terracotta) 25%, rgba(140,123,107,0.2) 25%);
+  outline: none; cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+  background: var(--terracotta); box-shadow: 0 2px 8px rgba(196,98,45,0.35); transition: transform 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.chip-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.5rem; }
+.chip {
+  padding: 0.4rem 0.9rem; border: 1.5px solid var(--border); border-radius: 2rem;
+  font-size: 0.83rem; cursor: pointer; background: white; color: var(--dusty);
+  font-family: 'DM Sans', sans-serif; transition: all 0.2s; user-select: none;
+}
+.chip:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.chip.selected { background: var(--terracotta); border-color: var(--terracotta); color: white; font-weight: 500; }
+
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.9rem 1.1rem; background: white; border: 1.5px solid var(--border);
+  border-radius: 0.85rem; margin-bottom: 0.55rem; transition: border-color 0.2s;
+}
+.toggle-row:has(.tog:checked) { border-color: rgba(196,98,45,0.3); }
+.toggle-info h4 { font-size: 0.88rem; font-weight: 500; }
+.toggle-info p { font-size: 0.76rem; color: var(--dusty); margin-top: 0.1rem; }
+.tog {
+  position: relative; width: 2.7rem; height: 1.55rem; appearance: none;
+  background: rgba(140,123,107,0.2); border-radius: 1rem; cursor: pointer;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.tog::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 0.95rem; height: 0.95rem; border-radius: 50%; background: white;
+  transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.tog:checked { background: var(--terracotta); }
+.tog:checked::after { left: calc(100% - 1.25rem); }
+
+.text-area {
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  padding: 0.85rem 1.1rem; border: 1.5px solid var(--border); border-radius: 0.75rem;
+  background: white; color: var(--ink); outline: none; resize: vertical;
+  min-height: 90px; line-height: 1.6; transition: border-color 0.2s;
+}
+.text-area:focus { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(196,98,45,0.08); }
+.text-area::placeholder { color: var(--dusty); opacity: 0.5; }
+.field-section { font-size: 0.77rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dusty); margin: 1.3rem 0 0.7rem; }
+
+.ob-nav-buttons {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--border);
+}
+.btn-back {
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--dusty);
+  background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+}
+.btn-back:hover { color: var(--ink); }
+.btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
+.ob-step-counter { font-size: 0.8rem; color: var(--dusty); }
+.btn-next {
+  font-family: 'DM Sans', sans-serif; background: var(--terracotta); color: white;
+  border: none; padding: 0.85rem 1.9rem; border-radius: 3rem; font-size: 0.92rem;
+  font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.btn-next:hover { background: #a8501f; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,98,45,0.3); }
+
+/* Onboarding completion */
+.ob-completion { display: none; text-align: center; padding: 2rem 0; animation: panelIn 0.5s ease both; }
+.ob-completion.ob-active { display: block; }
+.completion-icon {
+  width: 5rem; height: 5rem; background: var(--light-sage); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem;
+}
+.completion h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem; }
+.completion h2 em { font-style: italic; color: var(--terracotta); }
+.completion p { font-size: 1rem; color: var(--dusty); max-width: 40ch; margin: 0 auto 2rem; line-height: 1.7; font-weight: 300; }
+.profile-summary {
+  background: white; border: 1px solid var(--border); border-radius: 1.2rem;
+  padding: 1.5rem; text-align: left; margin: 0 auto 2rem; max-width: 480px;
+}
+.summary-title { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dusty); margin-bottom: 1rem; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid var(--border); font-size: 0.87rem; }
+.summary-row:last-child { border-bottom: none; }
+.summary-key { color: var(--dusty); font-weight: 400; }
+.summary-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 60%; }
+.btn-primary-large {
+  background: var(--terracotta); color: white; border: none; padding: 1rem 2.4rem;
+  border-radius: 3rem; font-size: 1rem; font-weight: 500; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all 0.2s; text-decoration: none; display: inline-block;
+}
+.btn-primary-large:hover { background: #a8501f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,98,45,0.3); }
+
+/* ═══════════════════════════════════════
+   PLANNER VIEW
+═══════════════════════════════════════ */
+#view-planner {
+  min-height: 100vh; flex-direction: column; align-items: center;
+  padding: 5.5rem 2rem 2rem; background: var(--cream);
+}
+.planner-wrap { width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 1rem; }
+.planner-intro { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; }
+.planner-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; }
+.planner-intro h2 em { font-style: italic; color: var(--terracotta); }
+.planner-intro p { font-size: 0.88rem; color: var(--dusty); }
+.profile-pill {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: white; border: 1px solid var(--border); border-radius: 2rem;
+  padding: 0.45rem 1rem; font-size: 0.83rem; color: var(--dusty); cursor: pointer;
+  transition: border-color 0.2s;
+}
+.profile-pill:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.profile-pill span { font-size: 1rem; }
+
+.planner-card {
+  background: white; border-radius: 1.5rem;
+  border: 1px solid rgba(196,98,45,0.1);
+  box-shadow: 0 8px 40px rgba(26,18,8,0.07); overflow: hidden;
+}
+.planner-header {
+  background: var(--ink); padding: 1.1rem 1.6rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.planner-dots { display: flex; gap: 0.4rem; }
+.pdot { width: 0.65rem; height: 0.65rem; border-radius: 50%; background: rgba(245,240,232,0.18); }
+.planner-header-title {
+  font-family: 'Playfair Display', serif; color: var(--cream);
+  font-size: 0.9rem; font-weight: 400; font-style: italic; margin-left: 0.4rem;
+}
+.planner-header-name {
+  margin-left: auto; font-size: 0.8rem; color: rgba(245,240,232,0.4);
+}
+
+.chat-window {
+  height: 440px; overflow-y: auto; padding: 1.6rem;
+  display: flex; flex-direction: column; gap: 1.1rem; scroll-behavior: smooth;
+}
+.chat-window::-webkit-scrollbar { width: 4px; }
+.chat-window::-webkit-scrollbar-track { background: transparent; }
+.chat-window::-webkit-scrollbar-thumb { background: rgba(140,123,107,0.25); border-radius: 2px; }
+
+.msg { display: flex; gap: 0.7rem; align-items: flex-start; animation: msgIn 0.3s ease both; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.msg.user { flex-direction: row-reverse; }
+.avatar {
+  width: 2rem; height: 2rem; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;
+}
+.avatar.ai { background: var(--terracotta); color: white; font-family: 'Playfair Display', serif; font-style: italic; }
+.avatar.user-av { background: var(--light-sage); color: var(--sage); }
+.bubble {
+  max-width: 76%; padding: 0.85rem 1.1rem; border-radius: 1.1rem; font-size: 0.9rem; line-height: 1.65;
+}
+.msg.ai .bubble { background: var(--warm); border-bottom-left-radius: 0.25rem; color: var(--ink); }
+.msg.user .bubble { background: var(--terracotta); color: white; border-bottom-right-radius: 0.25rem; }
+.bubble strong { font-weight: 600; }
+.bubble ul { margin: 0.4rem 0 0.3rem 1.1rem; }
+.bubble ul li { margin-bottom: 0.18rem; }
+
+.typing-indicator { display: flex; gap: 0.3rem; align-items: center; padding: 0.75rem 1.1rem; }
+.typing-indicator span { width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--dusty); animation: tbounce 1.2s infinite; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes tbounce { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+
+.suggestions { padding: 0 1.6rem 0.8rem; display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.suggestion-pill {
+  font-size: 0.8rem; color: var(--terracotta);
+  border: 1px solid rgba(196,98,45,0.28); padding: 0.32rem 0.8rem; border-radius: 2rem;
+  cursor: pointer; background: none; font-family: 'DM Sans', sans-serif; transition: all 0.2s; white-space: nowrap;
+}
+.suggestion-pill:hover { background: var(--terracotta); color: white; }
+
+.chat-input-area { padding: 1rem 1.6rem; border-top: 1px solid rgba(196,98,45,0.1); display: flex; gap: 0.7rem; align-items: flex-end; }
+#chat-input {
+  flex: 1; font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
+  padding: 0.75rem 1.1rem; border: 1.5px solid rgba(140,123,107,0.22); border-radius: 2rem;
+  background: var(--warm); color: var(--ink); outline: none; resize: none;
+  line-height: 1.5; transition: border-color 0.2s; max-height: 110px; overflow-y: auto;
+}
+#chat-input:focus { border-color: var(--terracotta); }
+#chat-input::placeholder { color: var(--dusty); opacity: 0.55; }
+#send-btn {
+  width: 2.6rem; height: 2.6rem; background: var(--terracotta); border: none;
+  border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s; color: white;
+}
+#send-btn:hover { background: #a8501f; transform: scale(1.05); }
+#send-btn:disabled { background: var(--dusty); cursor: not-allowed; transform: none; }
+
+/* ═══════════════════════════════════════
+   SAVED TRIPS PANEL
+═══════════════════════════════════════ */
+.planner-layout {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 1100px;
+  align-items: start;
+}
+.trips-panel {
+  background: white; border-radius: 1.2rem;
+  border: 1px solid var(--border); overflow: hidden;
+  position: sticky; top: 5.5rem;
+}
+.trips-panel-header {
+  padding: 1rem 1.2rem 0.8rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.trips-panel-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; }
+.btn-new-trip {
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+  background: var(--terracotta); color: white; border: none; border-radius: 2rem;
+  padding: 0.32rem 0.8rem; cursor: pointer; transition: background 0.2s;
+}
+.btn-new-trip:hover { background: #a8501f; }
+.trips-list { max-height: 420px; overflow-y: auto; }
+.trips-list::-webkit-scrollbar { width: 3px; }
+.trips-list::-webkit-scrollbar-thumb { background: rgba(140,123,107,0.2); border-radius: 2px; }
+.trip-item {
+  padding: 0.8rem 1.2rem; border-bottom: 1px solid rgba(140,123,107,0.1);
+  cursor: pointer; transition: background 0.15s; position: relative;
+}
+.trip-item:last-child { border-bottom: none; }
+.trip-item:hover { background: var(--warm); }
+.trip-item.active-trip { background: var(--selected-bg); border-left: 2.5px solid var(--terracotta); }
+.trip-item-name {
+  font-size: 0.87rem; font-weight: 500; color: var(--ink); margin-bottom: 0.18rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px;
+}
+.trip-item-meta { font-size: 0.73rem; color: var(--dusty); }
+.trip-item-actions {
+  position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+  display: none; gap: 0.3rem;
+}
+.trip-item:hover .trip-item-actions { display: flex; }
+.trip-action-btn {
+  width: 1.55rem; height: 1.55rem; border-radius: 50%; border: none;
+  cursor: pointer; font-size: 0.68rem; display: flex; align-items: center; justify-content: center; transition: background 0.15s;
+}
+.trip-action-btn.rename { background: var(--light-sage); color: var(--sage); }
+.trip-action-btn.rename:hover { background: var(--sage); color: white; }
+.trip-action-btn.delete { background: rgba(196,98,45,0.1); color: var(--terracotta); }
+.trip-action-btn.delete:hover { background: var(--terracotta); color: white; }
+.trips-empty { padding: 2rem 1.2rem; text-align: center; font-size: 0.82rem; color: var(--dusty); line-height: 1.6; }
+.trips-empty span { display: block; font-size: 1.8rem; margin-bottom: 0.5rem; }
+.save-bar {
+  padding: 0.55rem 1.6rem; border-top: 1px solid rgba(196,98,45,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(245,240,232,0.6);
+}
+.save-bar-left { font-size: 0.78rem; color: var(--dusty); display: flex; align-items: center; gap: 0.5rem; }
+.current-trip-name { font-weight: 500; color: var(--ink); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.autosave-dot { width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--sage); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.btn-save-trip {
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+  background: none; border: 1.5px solid var(--border); border-radius: 2rem;
+  padding: 0.28rem 0.8rem; cursor: pointer; color: var(--dusty); transition: all 0.2s;
+}
+.btn-save-trip:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(26,18,8,0.4); z-index: 500;
+  display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: 1.2rem; padding: 1.8rem;
+  width: 100%; max-width: 360px; box-shadow: 0 20px 60px rgba(26,18,8,0.15);
+  animation: modalIn 0.25s ease both;
+}
+@keyframes modalIn { from { opacity:0; transform:scale(0.95) translateY(8px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; }
+.modal p { font-size: 0.84rem; color: var(--dusty); margin-bottom: 1.1rem; }
+.modal-input {
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
+  padding: 0.72rem 1rem; border: 1.5px solid var(--border); border-radius: 0.7rem;
+  background: var(--warm); color: var(--ink); outline: none; margin-bottom: 1rem; transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--terracotta); }
+.modal-buttons { display: flex; gap: 0.7rem; justify-content: flex-end; }
+.modal-cancel { font-family: 'DM Sans', sans-serif; font-size: 0.87rem; color: var(--dusty); background: none; border: none; cursor: pointer; padding: 0.5rem 0.6rem; }
+.modal-confirm {
+  font-family: 'DM Sans', sans-serif; font-size: 0.87rem; font-weight: 500;
+  background: var(--terracotta); color: white; border: none; border-radius: 2rem;
+  padding: 0.52rem 1.2rem; cursor: pointer; transition: background 0.2s;
+}
+.modal-confirm:hover { background: #a8501f; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 4rem 2rem; }
+  .landing-section { padding: 4rem 2rem; }
+  .top-nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .for-you-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; padding: 2rem; }
+  .ob-shell { grid-template-columns: 1fr; }
+  .ob-sidebar { display: none; }
+  .ob-main { padding: 1.5rem; }
+  .tile-grid { grid-template-columns: 1fr 1fr; }
+  .input-row { grid-template-columns: 1fr; }
+  .planner-layout { grid-template-columns: 1fr; }
+  .trips-panel { position: static; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SHARED NAV ═══ -->
+<nav class="top-nav">
+  <div class="logo" onclick="showView('landing')">Gripsters<span>Guide</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showLandingSection('how'); return false;">How It Works</a></li>
+    <li><a href="#" onclick="showLandingSection('features'); return false;">For You</a></li>
+    <li><a href="#" onclick="startOnboarding(); return false;">Create Profile</a></li>
+    <li><a href="#" class="nav-cta" onclick="goToPlanner(); return false;">Plan a Trip</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     VIEW 1: LANDING PAGE
+════════════════════════════════════════════════ -->
+<div id="view-landing" class="view active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-left">
+      <div class="hero-tag">Independent Travel, Intelligently Planned</div>
+      <h1>Travel on your<br><em>own terms.</em><br>No tours. No rush.</h1>
+      <p class="hero-sub">Gripsters Guide is the AI travel planner built for people who know exactly what they want — and want technology that keeps up with them.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="startOnboarding()">Create My Profile →</button>
+        <button class="btn-ghost" onclick="goToPlanner()">Try the Planner →</button>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-stat"><div class="proof-num">15k+</div><div class="proof-label">Trips Planned</div></div>
+        <div class="proof-divider"></div>
+        <div class="proof-stat"><div class="proof-num">94%</div><div class="proof-label">Would Recommend</div></div>
+        <div class="proof-divider"></div>
+        <div class="proof-stat"><div class="proof-num">80+</div><div class="proof-label">Destinations</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-stack">
+        <div class="feature-card">
+          <div class="card-icon">🗺️</div>
+          <div class="card-badge">Just Generated</div>
+          <h3>10 Days in Portugal</h3>
+          <p>Relaxed pace · Free cancellation · Walking distances included · Local restaurant picks</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🏨</div>
+          <div class="card-badge">Best Match</div>
+          <h3>Boutique Hotels, Not Chains</h3>
+          <p>Filtered for lift access, quiet streets, and character — no cookie-cutter options</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💬</div>
+          <h3>Ask Anything, Anytime</h3>
+          <p>"What if I want two extra days in Lisbon?" — just say so and the plan adjusts</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="landing-section how" id="landing-how">
+    <div class="section-tag">The Process</div>
+    <h2>How Gripsters Guide works</h2>
+    <p class="how-sub">From blank slate to bookable itinerary in minutes, built around how you travel — not how everyone else does.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div><h3>Build your profile</h3><p>Your pace, interests, mobility preferences, and what you actively want to avoid. One profile, remembered forever.</p></div>
+      <div class="step reveal"><div class="step-num">02</div><h3>Describe your dream trip</h3><p>As vague or specific as you like. "Three weeks in Japan, no package tours, good food" is plenty to start.</p></div>
+      <div class="step reveal"><div class="step-num">03</div><h3>Refine in conversation</h3><p>Your AI planner drafts a full itinerary then listens as you tweak it. Change anything, instantly.</p></div>
+      <div class="step reveal"><div class="step-num">04</div><h3>Book with confidence</h3><p>Flight and hotel links curated to your preferences, with free cancellation flagged and walking distances noted.</p></div>
+    </div>
+  </section>
+
+  <!-- DESIGNED FOR YOU -->
+  <section class="landing-section for-you" id="landing-features">
+    <div class="section-tag">Designed For You</div>
+    <h2>Every detail thought through</h2>
+    <div class="for-you-grid">
+      <div class="for-item reveal"><div class="for-icon">🚶</div><div><h4>Realistic walking distances</h4><p>Every itinerary notes how far you'll walk between stops — no nasty surprises.</p></div></div>
+      <div class="for-item reveal"><div class="for-icon">🛏️</div><div><h4>Comfort-first accommodation</h4><p>Filter for lifts, quiet locations, good beds. No compromises you didn't choose.</p></div></div>
+      <div class="for-item reveal"><div class="for-icon">🔄</div><div><h4>Flexible bookings by default</h4><p>We flag free cancellation options prominently. Plans change — bookings should too.</p></div></div>
+      <div class="for-item reveal"><div class="for-icon">💊</div><div><h4>Medical & pharmacy proximity</h4><p>Know where the nearest pharmacy and hospital is for every destination.</p></div></div>
+      <div class="for-item reveal"><div class="for-icon">🍽️</div><div><h4>Dietary preferences remembered</h4><p>Tell us once. Every restaurant suggestion across every trip respects your needs.</p></div></div>
+      <div class="for-item reveal"><div class="for-icon">📞</div><div><h4>Human backup available</h4><p>Premium members can reach a real travel advisor anytime. AI first, human when it matters.</p></div></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="landing-section testimonials">
+    <div class="section-tag">What Gripsters Say</div>
+    <h2>Real trips. Real freedom.</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial reveal"><div class="stars">★★★★★</div><blockquote>"Finally a travel tool that doesn't assume I want a coach tour. I've done three solo trips with Gripsters Guide and every itinerary has been spot on — my pace, my interests."</blockquote><cite>— Margaret, 67 · Edinburgh</cite></div>
+      <div class="testimonial reveal"><div class="stars">★★★★★</div><blockquote>"The walking distance feature alone is worth it. I have a dodgy knee and knowing I won't be surprised by a 2km uphill walk to a restaurant changes everything."</blockquote><cite>— David, 61 · Melbourne</cite></div>
+      <div class="testimonial reveal"><div class="stars">★★★★★</div><blockquote>"We used it to plan six weeks across Southeast Asia. We tweaked the itinerary about twenty times before we left and it just adapted each time. Brilliant."</blockquote><cite>— Robert & Susan, 58 & 56 · Toronto</cite></div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <h2>Your next adventure<br>is waiting.</h2>
+    <p>Join thousands of independent travellers who plan smarter, book confidently, and travel entirely on their own terms.</p>
+    <button class="btn-white" onclick="startOnboarding()">Create Your Free Profile</button>
+  </section>
+
+  <footer>
+    <div class="logo" style="cursor:default">Gripsters<span style="font-style:italic; color:rgba(245,240,232,0.5)">Guide</span></div>
+    <div style="display:flex; gap:2rem; flex-wrap:wrap; justify-content:center;">
+      <a href="#">About</a><a href="#">How It Works</a><a href="#">Privacy</a><a href="#">Contact</a>
+    </div>
+    <div>© 2026 Gripsters Guide. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     VIEW 2: ONBOARDING
+════════════════════════════════════════════════ -->
+<div id="view-onboarding" class="view">
+  <div class="ob-shell">
+
+    <!-- Sidebar -->
+    <aside class="ob-sidebar">
+      <div class="ob-sidebar-title">Build your<br>traveller profile</div>
+      <p class="ob-sidebar-sub">Tell us once. Every trip you plan will be shaped around you from the start.</p>
+      <nav class="steps-nav" id="ob-steps-nav">
+        <div class="step-indicator si-active" data-step="1"><div class="step-dot"><span class="step-dot-num">1</span></div><div class="step-info"><div class="step-label">About You</div><div class="step-sublabel">Name, home, contact</div></div></div>
+        <div class="step-indicator" data-step="2"><div class="step-dot"><span class="step-dot-num">2</span></div><div class="step-info"><div class="step-label">Travel Style</div><div class="step-sublabel">Pace, budget, priorities</div></div></div>
+        <div class="step-indicator" data-step="3"><div class="step-dot"><span class="step-dot-num">3</span></div><div class="step-info"><div class="step-label">Interests</div><div class="step-sublabel">What you love to do</div></div></div>
+        <div class="step-indicator" data-step="4"><div class="step-dot"><span class="step-dot-num">4</span></div><div class="step-info"><div class="step-label">Comfort & Mobility</div><div class="step-sublabel">Accommodation & accessibility</div></div></div>
+        <div class="step-indicator" data-step="5"><div class="step-dot"><span class="step-dot-num">5</span></div><div class="step-info"><div class="step-label">Food & Health</div><div class="step-sublabel">Diet & medical context</div></div></div>
+        <div class="step-indicator" data-step="6"><div class="step-dot"><span class="step-dot-num">6</span></div><div class="step-info"><div class="step-label">Travel Preferences</div><div class="step-sublabel">Booking & avoid list</div></div></div>
+      </nav>
+      <div class="ob-sidebar-footer">Your profile is saved locally and used only to personalise your trip plans. You can update it any time.</div>
+    </aside>
+
+    <!-- Main -->
+    <main class="ob-main">
+      <div class="ob-progress-bar"><div class="ob-progress-fill" id="ob-progress" style="width:16.6%"></div></div>
+
+      <!-- STEP 1 -->
+      <div class="ob-panel ob-active" id="ob-step-1">
+        <div class="panel-tag">Step 1 of 6</div>
+        <h1 class="panel-title">Hello, <em>traveller.</em><br>Let's get acquainted.</h1>
+        <p class="panel-desc">Just the basics — we'll use this to personalise your experience.</p>
+        <div class="input-row">
+          <div class="field-group"><label class="field-label">First name</label><input class="text-input" type="text" id="ob-first-name" placeholder="Margaret"></div>
+          <div class="field-group"><label class="field-label">Last name</label><input class="text-input" type="text" id="ob-last-name" placeholder="Thornton"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Email address</label><input class="text-input" type="email" id="ob-email" placeholder="margaret@example.com"></div>
+        <div class="input-row">
+          <div class="field-group"><label class="field-label">Home city</label><input class="text-input" type="text" id="ob-city" placeholder="Sydney"></div>
+          <div class="field-group"><label class="field-label">Preferred airport</label><input class="text-input" type="text" id="ob-airport" placeholder="SYD — Sydney"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">How many trips do you typically take per year?</label>
+          <div class="tile-grid" style="grid-template-columns: repeat(4,1fr)">
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🌤️</span><span class="tile-name">1–2</span><span class="tile-desc">trips per year</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🌍</span><span class="tile-name">3–4</span><span class="tile-desc">trips per year</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🧳</span><span class="tile-name">5–6</span><span class="tile-desc">trips per year</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🗺️</span><span class="tile-name">7+</span><span class="tile-desc">trips per year</span></div>
+          </div>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" disabled>← Back</button>
+          <span class="ob-step-counter">1 of 6</span>
+          <button class="btn-next" onclick="obNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="ob-panel" id="ob-step-2">
+        <div class="panel-tag">Step 2 of 6</div>
+        <h1 class="panel-title">How do you like<br>to <em>travel?</em></h1>
+        <p class="panel-desc">No right answers. This shapes the rhythm and feel of every itinerary we build for you.</p>
+        <div class="field-group">
+          <label class="field-label">What's your preferred pace?</label>
+          <div class="tile-grid">
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🌿</span><span class="tile-name">Very relaxed</span><span class="tile-desc">Rest days built in, never rushed</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🚶</span><span class="tile-name">Relaxed</span><span class="tile-desc">Comfortable pace, some downtime</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🚴</span><span class="tile-name">Moderate</span><span class="tile-desc">Active days, evenings to recover</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">⚡</span><span class="tile-name">Busy</span><span class="tile-desc">Pack it in, maximum experiences</span></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Typical trip length preference?</label>
+          <div class="chip-grid">
+            <div class="chip" onclick="this.classList.toggle('selected')">Long weekend (3–4 days)</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">One week</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Two weeks</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Three weeks+</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Open-ended</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Nightly accommodation budget (per room)</label>
+          <div class="slider-wrap">
+            <div class="slider-value" id="ob-budget-display">A$200 / night</div>
+            <input type="range" id="ob-budget" min="80" max="800" value="200" step="10" oninput="updateBudget(this.value)">
+            <div class="slider-labels"><span>A$80</span><span>A$800+</span></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">How do you typically travel?</label>
+          <div class="chip-grid">
+            <div class="chip" onclick="this.classList.toggle('selected')">Solo</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">With partner</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">With friends</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">With family</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">It varies</div>
+          </div>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" onclick="obPrev()">← Back</button>
+          <span class="ob-step-counter">2 of 6</span>
+          <button class="btn-next" onclick="obNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="ob-panel" id="ob-step-3">
+        <div class="panel-tag">Step 3 of 6</div>
+        <h1 class="panel-title">What makes a trip<br><em>worth taking?</em></h1>
+        <p class="panel-desc">Select everything that resonates — your AI planner will weave these into every itinerary.</p>
+        <div class="field-group">
+          <label class="field-label">Your travel interests <span style="color:var(--dusty);font-weight:300">(select all that apply)</span></label>
+          <div class="tile-grid wide">
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🏛️</span><span class="tile-name">History & Heritage</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🍷</span><span class="tile-name">Food & Wine</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🎨</span><span class="tile-name">Art & Museums</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🌿</span><span class="tile-name">Nature & Walking</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">📸</span><span class="tile-name">Photography</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🎭</span><span class="tile-name">Theatre & Culture</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🏖️</span><span class="tile-name">Beaches & Coast</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚂</span><span class="tile-name">Scenic Rail</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🧶</span><span class="tile-name">Artisan Shopping</span><span class="tile-desc">Markets, makers & unique finds</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">⛪</span><span class="tile-name">Architecture</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🌋</span><span class="tile-name">Landscapes</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🧘</span><span class="tile-name">Wellness & Spas</span></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Anything else you love? <span style="color:var(--dusty);font-weight:300">(optional)</span></label>
+          <textarea class="text-area" id="ob-interests-extra" placeholder="e.g. Jazz music, bookshops, small-batch whisky distilleries, birdwatching..."></textarea>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" onclick="obPrev()">← Back</button>
+          <span class="ob-step-counter">3 of 6</span>
+          <button class="btn-next" onclick="obNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="ob-panel" id="ob-step-4">
+        <div class="panel-tag">Step 4 of 6</div>
+        <h1 class="panel-title">Comfort &<br><em>accessibility.</em></h1>
+        <p class="panel-desc">Help us filter accommodation and plan routes around what works best for you physically.</p>
+        <div class="field-group">
+          <label class="field-label">Preferred accommodation type</label>
+          <div class="tile-grid">
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🏨</span><span class="tile-name">Boutique hotel</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🏰</span><span class="tile-name">Historic / characterful</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🏠</span><span class="tile-name">Apartment / rental</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🌟</span><span class="tile-name">Luxury hotel</span></div>
+          </div>
+        </div>
+        <div class="field-section">Accessibility preferences</div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Lift / elevator access required</h4><p>Filter out hotels where rooms can only be reached by stairs</p></div><input type="checkbox" class="tog"></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Ground or low floor preferred</h4><p>Prefer rooms on lower floors where possible</p></div><input type="checkbox" class="tog"></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Walk-in shower (not bath)</h4><p>Flag this as a preference when filtering rooms</p></div><input type="checkbox" class="tog"></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Quiet room / away from street noise</h4><p>Prefer courtyard-facing or quiet-street locations</p></div><input type="checkbox" class="tog"></div>
+        <div class="field-group" style="margin-top:1rem">
+          <label class="field-label">Comfortable daily walking distance</label>
+          <div class="slider-wrap">
+            <div class="slider-value" id="ob-walk-display">3–5 km per day</div>
+            <input type="range" id="ob-walk" min="1" max="5" value="3" step="1" oninput="updateWalk(this.value)">
+            <div class="slider-labels"><span>Under 2 km</span><span>10 km+</span></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Any mobility or accessibility notes? <span style="color:var(--dusty);font-weight:300">(optional, private)</span></label>
+          <textarea class="text-area" placeholder="e.g. Bad knee on steep inclines, need frequent rest stops, use a walking stick on uneven terrain..."></textarea>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" onclick="obPrev()">← Back</button>
+          <span class="ob-step-counter">4 of 6</span>
+          <button class="btn-next" onclick="obNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="ob-panel" id="ob-step-5">
+        <div class="panel-tag">Step 5 of 6</div>
+        <h1 class="panel-title">Food, drink &<br><em>wellbeing.</em></h1>
+        <p class="panel-desc">Your AI planner will use this to recommend restaurants and keep useful health information nearby.</p>
+        <div class="field-group">
+          <label class="field-label">Dietary requirements <span style="color:var(--dusty);font-weight:300">(select all that apply)</span></label>
+          <div class="chip-grid">
+            <div class="chip" onclick="this.classList.toggle('selected')">No restrictions</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Vegetarian</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Vegan</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Gluten-free</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Dairy-free</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Halal</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Kosher</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Low sodium</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Nut allergy</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Shellfish allergy</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Dining style preference</label>
+          <div class="tile-grid">
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🍽️</span><span class="tile-name">Local & authentic</span><span class="tile-desc">Where locals actually eat</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">⭐</span><span class="tile-name">Fine dining</span><span class="tile-desc">Special occasion restaurants</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🥘</span><span class="tile-name">Mix of both</span><span class="tile-desc">Casual lunches, better dinners</span></div>
+            <div class="tile" onclick="selectOne(this)"><span class="tile-icon">🌮</span><span class="tile-name">Street food & markets</span><span class="tile-desc">Relaxed, varied, exploratory</span></div>
+          </div>
+        </div>
+        <div class="field-section">Health & medical</div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Show nearest pharmacy for each destination</h4><p>Included by default in every itinerary</p></div><input type="checkbox" class="tog" checked></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Show nearest hospital / clinic</h4><p>Peace of mind for each location on your trip</p></div><input type="checkbox" class="tog" checked></div>
+        <div class="field-group" style="margin-top:1rem">
+          <label class="field-label">Any health or medical context to factor in? <span style="color:var(--dusty);font-weight:300">(optional, private)</span></label>
+          <div class="field-hint">This is never shared. Used only to improve your itinerary suggestions.</div>
+          <textarea class="text-area" placeholder="e.g. Type 2 diabetes — need regular meal stops. Avoid very high altitudes. Carry an EpiPen for bee stings..."></textarea>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" onclick="obPrev()">← Back</button>
+          <span class="ob-step-counter">5 of 6</span>
+          <button class="btn-next" onclick="obNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="ob-panel" id="ob-step-6">
+        <div class="panel-tag">Step 6 of 6</div>
+        <h1 class="panel-title">Final touches —<br><em>your rules.</em></h1>
+        <p class="panel-desc">Tell us what you always want, and what you never want. Your itineraries will respect both.</p>
+        <div class="field-group">
+          <label class="field-label">Booking preferences</label>
+          <div class="toggle-row"><div class="toggle-info"><h4>Small group tours welcome</h4><p>e.g. winery visits, cooking classes, guided walks with small groups</p></div><input type="checkbox" class="tog" id="ob-small-groups"></div>
+          <div class="toggle-row"><div class="toggle-info"><h4>Always show free cancellation options</h4><p>Flag bookings with flexible cancellation policies</p></div><input type="checkbox" class="tog" checked></div>
+          <div class="toggle-row"><div class="toggle-info"><h4>Avoid non-refundable bookings</h4><p>Only suggest fully flexible options</p></div><input type="checkbox" class="tog"></div>
+          <div class="toggle-row"><div class="toggle-info"><h4>Travel insurance reminder on every trip</h4><p>We'll remind you to check cover before you book</p></div><input type="checkbox" class="tog" checked></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Flight preferences</label>
+          <div class="chip-grid">
+            <div class="chip" onclick="this.classList.toggle('selected')">Direct flights only</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">1 stop acceptable</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Aisle seat</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Premium economy</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Business class</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">No early morning flights</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Extra legroom</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Things you <strong>never</strong> want suggested</label>
+          <div class="chip-grid">
+            <div class="chip selected" onclick="this.classList.toggle('selected')">Group package tours</div>
+            <div class="chip selected" onclick="this.classList.toggle('selected')">Cruise ships</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Hostels</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Budget airlines</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Chain hotels</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Theme parks</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Extreme sports</div>
+            <div class="chip" onclick="this.classList.toggle('selected')">Very touristy spots</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Anything else we should always or never do? <span style="color:var(--dusty);font-weight:300">(optional)</span></label>
+          <textarea class="text-area" id="ob-extra-rules" placeholder="e.g. Always include at least one long lunch. Never book me on flights with layovers under 2 hours..."></textarea>
+        </div>
+        <div class="ob-nav-buttons">
+          <button class="btn-back" onclick="obPrev()">← Back</button>
+          <span class="ob-step-counter">6 of 6</span>
+          <button class="btn-next" onclick="obComplete()">Save My Profile ✓</button>
+        </div>
+      </div>
+
+      <!-- COMPLETION -->
+      <div class="ob-completion" id="ob-completion">
+        <div class="completion-icon">🗺️</div>
+        <h2 class="completion">Welcome to<br><em>Gripsters Guide.</em></h2>
+        <p class="completion">Your traveller profile is saved. Every trip you plan will now be shaped around your pace, your interests, and your rules.</p>
+        <div class="profile-summary" id="ob-summary"></div>
+        <button class="btn-primary-large" onclick="goToPlanner()">Start Planning My First Trip →</button>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     VIEW 3: AI TRIP PLANNER
+════════════════════════════════════════════════ -->
+<div id="view-planner" class="view">
+  <div class="planner-layout">
+
+    <!-- LEFT: chat -->
+    <div class="planner-wrap" style="max-width:100%">
+      <div class="planner-intro">
+        <div>
+          <h2>Your <em>AI trip planner</em></h2>
+          <p>Describe your dream trip and I'll build an itinerary around you.</p>
+        </div>
+        <div class="profile-pill" onclick="showView('onboarding')" title="Edit your profile">
+          <span>👤</span> <span id="planner-name-pill">My Profile</span>
+        </div>
+      </div>
+
+      <div class="planner-card">
+        <div class="planner-header">
+          <div class="planner-dots"><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div></div>
+          <span class="planner-header-title">Gripsters Guide — AI Trip Planner</span>
+          <span class="planner-header-name" id="planner-header-name"></span>
+        </div>
+
+        <div class="chat-window" id="chat-window">
+          <div class="msg ai">
+            <div class="avatar ai">G</div>
+            <div class="bubble" id="welcome-bubble">
+              Hello! I'm your Gripsters Guide travel planner. I specialise in independent travel for people who like doing things their own way — no package tours, no rigid schedules.<br><br>
+              Tell me about a trip you're dreaming of and I'll build an itinerary around your pace and preferences. Where are you thinking of heading?
+            </div>
+          </div>
+        </div>
+
+        <div class="suggestions" id="suggestions">
+          <button class="suggestion-pill" onclick="useSuggestion(this)">10 days in Japan, relaxed pace</button>
+          <button class="suggestion-pill" onclick="useSuggestion(this)">Road trip through southern France</button>
+          <button class="suggestion-pill" onclick="useSuggestion(this)">Two weeks in New Zealand</button>
+          <button class="suggestion-pill" onclick="useSuggestion(this)">Long weekend in Lisbon</button>
+        </div>
+
+        <!-- Save bar -->
+        <div class="save-bar">
+          <div class="save-bar-left">
+            <div class="autosave-dot" id="autosave-dot" style="display:none"></div>
+            <span id="current-trip-label" style="color:var(--dusty);font-size:0.78rem">No trip saved yet</span>
+          </div>
+          <button class="btn-save-trip" onclick="promptSaveTrip()">💾 Save Trip</button>
+        </div>
+
+        <div class="chat-input-area">
+          <textarea id="chat-input" placeholder="Describe the trip you have in mind..." rows="1"></textarea>
+          <button id="send-btn" onclick="sendMessage()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: saved trips -->
+    <div class="trips-panel">
+      <div class="trips-panel-header">
+        <div class="trips-panel-title">My Trips</div>
+        <button class="btn-new-trip" onclick="newTrip()">+ New</button>
+      </div>
+      <div class="trips-list" id="trips-list">
+        <div class="trips-empty"><span>🗺️</span>Your saved trips will appear here. Start planning and hit "Save Trip" to keep your progress.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NAME MODAL -->
+<div class="modal-overlay" id="name-modal">
+  <div class="modal">
+    <h3 id="modal-title">Name this trip</h3>
+    <p id="modal-desc">Give it a name so you can find it later — you can always rename it.</p>
+    <input class="modal-input" type="text" id="modal-input" placeholder="e.g. Japan Autumn 2027" maxlength="60">
+    <div class="modal-buttons">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-confirm" id="modal-confirm-btn" onclick="confirmModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
+<script>
+/* ── VIEW MANAGEMENT ── */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showLandingSection(id) {
+  showView('landing');
+  setTimeout(() => {
+    const el = document.getElementById('landing-' + id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+function startOnboarding() { showView('onboarding'); }
+
+function goToPlanner() {
+  const name = localStorage.getItem('gg_first_name');
+  if (name) {
+    document.getElementById('planner-name-pill').textContent = name + "'s Profile";
+    document.getElementById('planner-header-name').textContent = name;
+  }
+  showView('planner');
+  buildSystemPrompt();
+  renderTripsList();
+}
+
+/* ── SCROLL REVEAL (landing) ── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ── ONBOARDING ── */
+let obStep = 1;
+const obTotal = 6;
+
+function obNext() { if (obStep < obTotal) obGoTo(obStep + 1); }
+function obPrev() { if (obStep > 1) obGoTo(obStep - 1); }
+
+function obGoTo(n) {
+  document.getElementById(`ob-step-${obStep}`)?.classList.remove('ob-active');
+  document.getElementById(`ob-step-${n}`)?.classList.add('ob-active');
+  document.querySelectorAll('.step-indicator').forEach(ind => {
+    const s = parseInt(ind.dataset.step);
+    ind.classList.remove('si-active', 'si-done');
+    if (s === n) ind.classList.add('si-active');
+    if (s < n) {
+      ind.classList.add('si-done');
+      const num = ind.querySelector('.step-dot-num');
+      if (num) num.style.display = 'none';
+    } else {
+      const num = ind.querySelector('.step-dot-num');
+      if (num) num.style.display = '';
+    }
+  });
+  document.getElementById('ob-progress').style.width = ((n / obTotal) * 100) + '%';
+  obStep = n;
+  window.scrollTo(0, 0);
+}
+
+function selectOne(el) {
+  el.closest('.tile-grid').querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function updateBudget(val) {
+  const display = document.getElementById('ob-budget-display');
+  const slider = document.getElementById('ob-budget');
+  display.textContent = val >= 800 ? 'A$800+ / night' : `A$${val} / night`;
+  const pct = ((val - 80) / (800 - 80)) * 100;
+  slider.style.background = `linear-gradient(to right, var(--terracotta) 0%, var(--terracotta) ${pct}%, rgba(140,123,107,0.2) ${pct}%)`;
+}
+
+const walkLabels = ['Under 2 km','2–3 km','3–5 km','5–8 km','8–10 km','10 km+'];
+function updateWalk(val) {
+  const display = document.getElementById('ob-walk-display');
+  const slider = document.getElementById('ob-walk');
+  display.textContent = (walkLabels[Math.min(val, walkLabels.length - 1)] || '3–5 km') + ' per day';
+  const pct = ((val - 1) / (5 - 1)) * 100;
+  slider.style.background = `linear-gradient(to right, var(--terracotta) 0%, var(--terracotta) ${pct}%, rgba(140,123,107,0.2) ${pct}%)`;
+}
+
+function obComplete() {
+  const firstName   = document.getElementById('ob-first-name').value || 'Traveller';
+  const homeCity    = document.getElementById('ob-city').value || 'Not specified';
+  const airport     = document.getElementById('ob-airport').value || 'Not specified';
+  const budget      = document.getElementById('ob-budget-display').textContent;
+  const walk        = document.getElementById('ob-walk-display').textContent;
+  const interests   = [...document.querySelectorAll('.tile-grid.wide .tile.selected')]
+    .map(t => t.querySelector('.tile-name').textContent).join(', ') || 'Varied';
+  const diet        = [...document.querySelectorAll('#ob-step-5 .chip.selected')]
+    .map(c => c.textContent).slice(0, 3).join(', ') || 'No restrictions';
+  const smallGroups = document.getElementById('ob-small-groups').checked;
+
+  const profile = { firstName, homeCity, airport, budget, walk, interests, diet, smallGroups,
+    extra: document.getElementById('ob-interests-extra').value,
+    rules: document.getElementById('ob-extra-rules').value };
+  localStorage.setItem('gg_profile', JSON.stringify(profile));
+  localStorage.setItem('gg_first_name', firstName);
+
+  document.querySelectorAll('.ob-panel').forEach(p => p.classList.remove('ob-active'));
+  document.querySelectorAll('.step-indicator').forEach(ind => {
+    ind.classList.remove('si-active'); ind.classList.add('si-done');
+    const num = ind.querySelector('.step-dot-num');
+    if (num) num.style.display = 'none';
+  });
+  document.getElementById('ob-progress').style.width = '100%';
+
+  document.getElementById('ob-summary').innerHTML = `
+    <div class="summary-title">Your Profile at a Glance</div>
+    <div class="summary-row"><span class="summary-key">Name</span><span class="summary-val">${firstName}</span></div>
+    <div class="summary-row"><span class="summary-key">Home base</span><span class="summary-val">${homeCity}</span></div>
+    <div class="summary-row"><span class="summary-key">Airport</span><span class="summary-val">${airport}</span></div>
+    <div class="summary-row"><span class="summary-key">Accommodation budget</span><span class="summary-val">${budget}</span></div>
+    <div class="summary-row"><span class="summary-key">Daily walking comfort</span><span class="summary-val">${walk}</span></div>
+    <div class="summary-row"><span class="summary-key">Interests</span><span class="summary-val">${interests}</span></div>
+    <div class="summary-row"><span class="summary-key">Dietary needs</span><span class="summary-val">${diet}</span></div>
+    <div class="summary-row"><span class="summary-key">Small group tours</span><span class="summary-val">${smallGroups ? '✓ Welcome' : 'Not preferred'}</span></div>
+  `;
+  document.getElementById('ob-completion').classList.add('ob-active');
+  window.scrollTo(0, 0);
+}
+
+/* ══════════════════════════════════════════
+   SAVED TRIPS SYSTEM
+══════════════════════════════════════════ */
+let currentTripId = null;   // ID of the active saved trip (null = unsaved)
+let modalMode = 'save';     // 'save' | 'rename'
+let renameTargetId = null;
+
+/* Load all trips from localStorage */
+function loadTrips() {
+  const raw = localStorage.getItem('gg_trips');
+  return raw ? JSON.parse(raw) : [];
+}
+
+/* Save all trips to localStorage */
+function saveTrips(trips) {
+  localStorage.setItem('gg_trips', JSON.stringify(trips));
+}
+
+/* Format a date for display */
+function fmtDate(ts) {
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+/* Render the trips list panel */
+function renderTripsList() {
+  const trips = loadTrips();
+  const list  = document.getElementById('trips-list');
+
+  if (trips.length === 0) {
+    list.innerHTML = `<div class="trips-empty"><span>🗺️</span>Your saved trips will appear here. Start planning and hit "Save Trip" to keep your progress.</div>`;
+    return;
+  }
+
+  // Most recent first
+  trips.sort((a, b) => b.updatedAt - a.updatedAt);
+
+  list.innerHTML = trips.map(t => `
+    <div class="trip-item ${t.id === currentTripId ? 'active-trip' : ''}"
+         onclick="loadTrip('${t.id}')" data-id="${t.id}">
+      <div class="trip-item-name">${escHtml(t.name)}</div>
+      <div class="trip-item-meta">${fmtDate(t.updatedAt)} · ${t.messages.length} messages</div>
+      <div class="trip-item-actions">
+        <button class="trip-action-btn rename" title="Rename"
+          onclick="event.stopPropagation(); promptRenameTrip('${t.id}')">✏️</button>
+        <button class="trip-action-btn delete" title="Delete"
+          onclick="event.stopPropagation(); deleteTrip('${t.id}')">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* Update the save bar label */
+function updateSaveBar(name) {
+  const label = document.getElementById('current-trip-label');
+  const dot   = document.getElementById('autosave-dot');
+  if (name) {
+    label.innerHTML = `<span style="color:var(--dusty)">Saved: </span><span class="current-trip-name">${escHtml(name)}</span>`;
+    dot.style.display = 'block';
+  } else {
+    label.textContent = 'No trip saved yet';
+    dot.style.display = 'none';
+  }
+}
+
+/* Autosave current chat to existing trip */
+function autosave() {
+  if (!currentTripId || chatHistory.length === 0) return;
+  const trips = loadTrips();
+  const idx   = trips.findIndex(t => t.id === currentTripId);
+  if (idx === -1) return;
+  trips[idx].messages  = chatHistory.slice();
+  trips[idx].updatedAt = Date.now();
+  saveTrips(trips);
+  renderTripsList();
+}
+
+/* Save Trip button — open name modal */
+function promptSaveTrip() {
+  if (chatHistory.length === 0) {
+    alert('Start a conversation first, then save your trip.');
+    return;
+  }
+  if (currentTripId) {
+    // Already saved — just autosave silently
+    autosave();
+    flashSaved();
+    return;
+  }
+  modalMode = 'save';
+  document.getElementById('modal-title').textContent = 'Name this trip';
+  document.getElementById('modal-desc').textContent  = 'Give it a name so you can find it later.';
+  document.getElementById('modal-confirm-btn').textContent = 'Save Trip';
+  document.getElementById('modal-input').value = suggestTripName();
+  openModal();
+}
+
+function suggestTripName() {
+  // Try to extract a destination from first user message
+  const first = chatHistory.find(m => m.role === 'user');
+  if (!first) return '';
+  const text = first.content.slice(0, 60);
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function promptRenameTrip(id) {
+  const trips = loadTrips();
+  const trip  = trips.find(t => t.id === id);
+  if (!trip) return;
+  modalMode      = 'rename';
+  renameTargetId = id;
+  document.getElementById('modal-title').textContent = 'Rename trip';
+  document.getElementById('modal-desc').textContent  = 'Enter a new name for this trip.';
+  document.getElementById('modal-confirm-btn').textContent = 'Rename';
+  document.getElementById('modal-input').value = trip.name;
+  openModal();
+}
+
+function openModal() {
+  document.getElementById('name-modal').classList.add('open');
+  setTimeout(() => document.getElementById('modal-input').select(), 50);
+}
+
+function closeModal() {
+  document.getElementById('name-modal').classList.remove('open');
+  renameTargetId = null;
+}
+
+document.getElementById('modal-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') confirmModal();
+  if (e.key === 'Escape') closeModal();
+});
+
+function confirmModal() {
+  const name = document.getElementById('modal-input').value.trim();
+  if (!name) { document.getElementById('modal-input').focus(); return; }
+
+  if (modalMode === 'save') {
+    const id = 'trip_' + Date.now();
+    const trips = loadTrips();
+    trips.push({
+      id,
+      name,
+      messages:  chatHistory.slice(),
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+    saveTrips(trips);
+    currentTripId = id;
+    updateSaveBar(name);
+    renderTripsList();
+    flashSaved();
+  } else if (modalMode === 'rename') {
+    const trips = loadTrips();
+    const idx   = trips.findIndex(t => t.id === renameTargetId);
+    if (idx !== -1) {
+      trips[idx].name = name;
+      saveTrips(trips);
+      if (renameTargetId === currentTripId) updateSaveBar(name);
+      renderTripsList();
+    }
+  }
+  closeModal();
+}
+
+function flashSaved() {
+  const dot = document.getElementById('autosave-dot');
+  dot.style.background = 'var(--terracotta)';
+  setTimeout(() => { dot.style.background = 'var(--sage)'; }, 1000);
+}
+
+/* Load a saved trip into the chat window */
+function loadTrip(id) {
+  const trips = loadTrips();
+  const trip  = trips.find(t => t.id === id);
+  if (!trip) return;
+
+  // Confirm if there's an unsaved session in progress
+  if (chatHistory.length > 0 && currentTripId !== id) {
+    if (!confirm(`Load "${trip.name}"? Your current unsaved conversation will be lost.`)) return;
+  }
+
+  // Restore state
+  currentTripId = id;
+  chatHistory   = trip.messages.slice();
+
+  // Rebuild chat window
+  const win = document.getElementById('chat-window');
+  win.innerHTML = '';
+  document.getElementById('suggestions').style.display = 'none';
+
+  chatHistory.forEach(msg => {
+    const div = document.createElement('div');
+    div.className = `msg ${msg.role === 'user' ? 'user' : 'ai'}`;
+    const isAI = msg.role !== 'user';
+    const html = msg.content
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    div.innerHTML = `<div class="avatar ${isAI ? 'ai' : 'user-av'}">${isAI ? 'G' : 'You'}</div><div class="bubble">${html}</div>`;
+    win.appendChild(div);
+  });
+  win.scrollTop = win.scrollHeight;
+
+  updateSaveBar(trip.name);
+  renderTripsList();
+}
+
+/* Delete a trip */
+function deleteTrip(id) {
+  const trips = loadTrips();
+  const trip  = trips.find(t => t.id === id);
+  if (!trip) return;
+  if (!confirm(`Delete "${trip.name}"? This cannot be undone.`)) return;
+
+  const updated = trips.filter(t => t.id !== id);
+  saveTrips(updated);
+
+  if (currentTripId === id) {
+    newTrip();
+  } else {
+    renderTripsList();
+  }
+}
+
+/* Start a fresh new trip */
+function newTrip() {
+  currentTripId = null;
+  chatHistory   = [];
+
+  const win = document.getElementById('chat-window');
+  win.innerHTML = `
+    <div class="msg ai">
+      <div class="avatar ai">G</div>
+      <div class="bubble" id="welcome-bubble">
+        Ready for a new adventure! Tell me about the trip you have in mind and I'll build an itinerary shaped around you. Where are you thinking of heading?
+      </div>
+    </div>`;
+
+  document.getElementById('suggestions').style.display = 'flex';
+  updateSaveBar(null);
+  renderTripsList();
+  document.getElementById('chat-input').focus();
+}
+
+/* ── AI PLANNER ── */
+let chatHistory = [];
+let systemPrompt = '';
+
+function buildSystemPrompt() {
+  const raw = localStorage.getItem('gg_profile');
+  const p   = raw ? JSON.parse(raw) : null;
+
+  if (p) {
+    document.getElementById('welcome-bubble').innerHTML =
+      `Hello ${p.firstName}! Welcome back to your Gripsters Guide planner. I have your profile loaded — I know you like a <strong>${p.walk}</strong> day, prefer accommodation around <strong>${p.budget}</strong>, and are interested in <strong>${p.interests || 'varied experiences'}</strong>.<br><br>
+      Tell me about your next trip and I'll build an itinerary shaped entirely around you. Where are you thinking?`;
+
+    systemPrompt = `You are the Gripsters Guide AI travel planner. You are speaking with ${p.firstName}, a Gripster — a "Grey Hipster", an independent-minded traveller aged 55+ who is tech-savvy and has no interest in package tours or group itineraries.
+
+TRAVELLER PROFILE FOR ${p.firstName.toUpperCase()}:
+- Home base: ${p.homeCity} | Preferred airport: ${p.airport}
+- Accommodation budget: ${p.budget}
+- Comfortable daily walking distance: ${p.walk}
+- Travel interests: ${p.interests}
+- Dietary requirements: ${p.diet}
+- Small group tours (wineries, cooking classes etc): ${p.smallGroups ? 'Welcome' : 'Not preferred'}
+${p.extra ? '- Additional interests: ' + p.extra : ''}
+${p.rules ? '- Personal rules: ' + p.rules : ''}
+
+YOUR PERSONALITY: Warm, knowledgeable, slightly witty — like a well-travelled friend. Never condescending. Treat ${p.firstName} as a competent adult. Never suggest anything "suitable for older travellers" unless specifically asked.
+
+ALWAYS in itineraries:
+- Match the walking distance preference above; note actual distances between stops
+- Favour boutique/characterful hotels, not chains; respect the budget
+- Flag free cancellation options
+- Include local restaurant picks (not tourist traps); respect dietary needs
+- Mention nearest pharmacy/hospital for each destination region
+- Build in rest time and a relaxed pace unless asked otherwise
+${p.smallGroups ? '- Small group experiences (wineries, cooking classes, guided walks) are welcome' : '- Avoid group tours unless explicitly requested'}
+- NEVER suggest group package tours or cruise ships`;
+  } else {
+    systemPrompt = `You are the Gripsters Guide AI travel planner. Gripsters are "Grey Hipsters" — independent-minded travellers aged 55+ who are tech-savvy and have no interest in package tours or group itineraries.
+
+Your personality: warm, knowledgeable, slightly witty. Never condescending. Treat users as competent adults.
+
+Always in itineraries: suggest relaxed unhurried pace, note walking distances, favour boutique hotels, flag free cancellation, include local restaurant recommendations, mention pharmacy/hospital proximity. NEVER suggest group package tours or cruises.`;
+  }
+}
+
+buildSystemPrompt();
+
+/* Chat UI */
+const chatInput = document.getElementById('chat-input');
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = 'auto';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 110) + 'px';
+});
+chatInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+function useSuggestion(el) {
+  document.getElementById('suggestions').style.display = 'none';
+  chatInput.value = el.textContent;
+  sendMessage();
+}
+
+function appendMsg(role, html) {
+  const win = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const isAI = role === 'ai';
+  div.innerHTML = `<div class="avatar ${isAI ? 'ai' : 'user-av'}">${isAI ? 'G' : 'You'}</div><div class="bubble">${html}</div>`;
+  win.appendChild(div);
+  win.scrollTop = win.scrollHeight;
+}
+
+function showTyping() {
+  const win = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.id = 'typing-indicator'; div.className = 'msg ai';
+  div.innerHTML = `<div class="avatar ai">G</div><div class="bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+  win.appendChild(div);
+  win.scrollTop = win.scrollHeight;
+}
+function removeTyping() { document.getElementById('typing-indicator')?.remove(); }
+
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  const btn  = document.getElementById('send-btn');
+  if (!text || btn.disabled) return;
+
+  document.getElementById('suggestions').style.display = 'none';
+  appendMsg('user', text);
+  chatInput.value = ''; chatInput.style.height = 'auto';
+  btn.disabled = true; showTyping();
+  chatHistory.push({ role: 'user', content: text });
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: chatHistory
+      })
+    });
+    const data  = await res.json();
+    const reply = data.content?.[0]?.text || "I'm having a moment — please try again!";
+    chatHistory.push({ role: 'assistant', content: reply });
+    removeTyping();
+    const html = reply
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+    appendMsg('ai', html);
+
+    // Autosave if this is a named trip
+    autosave();
+
+  } catch {
+    removeTyping();
+    appendMsg('ai', "Sorry, I couldn't connect just now. Please try again in a moment.");
+  }
+  btn.disabled = false;
+  chatInput.focus();
+}
+
+// Init sliders
+updateBudget(200);
+updateWalk(3);
+</script>
+</body>
+</html>

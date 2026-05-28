@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slow Trains & Sharp Peaks — On the Road — Gripsters Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--terracotta); text-decoration: none; }
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--dusty); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; }
+.nav-cta:hover { background: #a8501f !important; }
+
+/* ── HERO ── */
+.post-hero {
+  min-height: 85vh; position: relative;
+  display: flex; align-items: flex-end;
+  overflow: hidden; background: var(--ink);
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.6;
+}
+/* Placeholder when no hero image */
+.hero-placeholder {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #2a2010 0%, #1a3020 40%, #1a1208 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+}
+.hero-placeholder-icon { font-size: 5rem; opacity: 0.15; }
+.hero-placeholder-text {
+  font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(245,240,232,0.2); font-family: 'DM Sans', sans-serif;
+}
+.hero-placeholder-hint { font-size: 0.72rem; color: rgba(245,240,232,0.12); font-style: italic; }
+
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.95) 0%, rgba(26,18,8,0.3) 50%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: 0 5rem 4rem; max-width: 860px;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(245,240,232,0.45); margin-bottom: 1.5rem;
+}
+.breadcrumb a { color: rgba(245,240,232,0.45); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb-sep { opacity: 0.3; }
+.hero-kicker {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.hero-kicker::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--cream); margin-bottom: 1.2rem;
+}
+h1 em { font-style: italic; color: var(--gold); }
+.hero-meta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.hero-byline { font-size: 0.85rem; color: rgba(245,240,232,0.55); }
+.hero-byline strong { color: rgba(245,240,232,0.8); font-weight: 500; }
+.hero-tag {
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  background: rgba(201,168,76,0.2); color: var(--gold);
+  padding: 0.22rem 0.7rem; border-radius: 2rem; border: 1px solid rgba(201,168,76,0.3);
+}
+
+/* ── ARTICLE LAYOUT ── */
+.article-wrap {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 4rem; max-width: 1100px;
+  margin: 0 auto; padding: 5rem 3rem;
+}
+
+/* ── ARTICLE BODY ── */
+.article-body { min-width: 0; }
+
+.article-lede {
+  font-family: 'Lora', serif;
+  font-size: 1.3rem; line-height: 1.75;
+  color: var(--ink); font-weight: 400;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-body p {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem; line-height: 1.85;
+  color: #2d2318; margin-bottom: 1.6rem;
+}
+
+.article-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 700; line-height: 1.2;
+  margin: 3rem 0 1.2rem; letter-spacing: -0.02em;
+}
+.article-body h2 em { font-style: italic; color: var(--terracotta); }
+
+.article-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 700;
+  margin: 2rem 0 0.8rem;
+}
+
+/* Pull quote */
+.pull-quote {
+  margin: 2.5rem 0;
+  padding: 1.8rem 2rem;
+  border-left: 3px solid var(--terracotta);
+  background: var(--warm);
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; line-height: 1.6;
+  font-style: italic; color: var(--ink);
+  margin-bottom: 0 !important;
+}
+.pull-quote cite {
+  display: block; margin-top: 0.6rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; color: var(--dusty);
+  font-style: normal; letter-spacing: 0.04em;
+}
+
+/* Inline images */
+.post-image {
+  margin: 2.5rem 0;
+  border-radius: 1rem; overflow: hidden;
+  position: relative;
+}
+.post-image img {
+  width: 100%; display: block;
+  max-height: 580px; object-fit: cover;
+}
+.post-image figcaption {
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem; color: var(--dusty);
+  font-style: italic; background: white;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 1rem 1rem;
+}
+/* Image placeholder */
+.post-image .img-placeholder {
+  width: 100%; min-height: 380px;
+  background: linear-gradient(135deg, var(--warm) 0%, rgba(201,168,76,0.12) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.6rem; color: var(--dusty); border-radius: 1rem;
+}
+.img-placeholder .placeholder-icon { font-size: 2.5rem; opacity: 0.35; }
+.img-placeholder .placeholder-label { font-size: 0.85rem; font-weight: 500; opacity: 0.5; }
+.img-placeholder .placeholder-hint { font-size: 0.75rem; opacity: 0.35; font-style: italic; }
+.img-placeholder .placeholder-size { font-size: 0.7rem; opacity: 0.25; font-family: monospace; margin-top: 0.2rem; }
+
+/* Two-up image grid */
+.image-pair {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.8rem; margin: 2.5rem 0;
+}
+.image-pair .post-image { margin: 0; }
+.image-pair .post-image .img-placeholder { min-height: 260px; }
+.image-pair .post-image img { max-height: 300px; }
+
+/* Info box */
+.info-box {
+  background: var(--light-sage); border-radius: 1rem;
+  padding: 1.5rem; margin: 2.5rem 0;
+  border: 1px solid rgba(122,158,126,0.2);
+}
+.info-box-title {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 0.8rem;
+}
+.info-box ul { list-style: none; }
+.info-box ul li {
+  font-family: 'Lora', serif; font-size: 0.92rem; color: var(--ink);
+  padding: 0.35rem 0; border-bottom: 1px solid rgba(122,158,126,0.15);
+  display: flex; gap: 0.6rem;
+}
+.info-box ul li:last-child { border-bottom: none; }
+.info-box ul li::before { content: '→'; color: var(--sage); flex-shrink: 0; }
+
+/* Tags */
+.article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
+.article-tag {
+  font-size: 0.78rem; font-weight: 500;
+  background: var(--warm); color: var(--dusty);
+  padding: 0.3rem 0.8rem; border-radius: 2rem;
+  border: 1px solid var(--border);
+}
+
+/* ── SIDEBAR ── */
+.article-sidebar { position: sticky; top: 5.5rem; height: fit-content; }
+
+.sidebar-card {
+  background: white; border-radius: 1.2rem; padding: 1.5rem;
+  border: 1px solid var(--border); margin-bottom: 1.2rem;
+}
+.sidebar-card-title {
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--dusty); margin-bottom: 1rem;
+}
+
+/* Trip facts */
+.trip-fact { display: flex; justify-content: space-between; padding: 0.45rem 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; }
+.trip-fact:last-child { border-bottom: none; }
+.fact-key { color: var(--dusty); }
+.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 55%; }
+
+/* Plan this trip CTA */
+.plan-cta {
+  background: var(--terracotta); border-radius: 1.2rem; padding: 1.5rem;
+  text-align: center; margin-bottom: 1.2rem;
+}
+.plan-cta p { font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-bottom: 1rem; line-height: 1.5; }
+.plan-cta h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; font-weight: 700; margin-bottom: 0.4rem; }
+.btn-plan {
+  display: block; background: white; color: var(--terracotta);
+  padding: 0.7rem 1.2rem; border-radius: 2rem; text-decoration: none;
+  font-size: 0.88rem; font-weight: 600; transition: all 0.2s;
+}
+.btn-plan:hover { background: var(--cream); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,18,8,0.15); }
+
+/* Table of contents */
+.toc-link {
+  display: block; font-size: 0.85rem; color: var(--dusty);
+  padding: 0.35rem 0; text-decoration: none;
+  border-bottom: 1px solid rgba(140,123,107,0.1); transition: color 0.2s;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.toc-link:last-child { border-bottom: none; }
+.toc-link:hover { color: var(--terracotta); }
+.toc-link::before { content: '·'; color: var(--terracotta); font-weight: 700; }
+
+/* ── POST FOOTER ── */
+.post-footer-section {
+  background: var(--ink); padding: 4rem 5rem; margin-top: 2rem;
+}
+.post-footer-inner { max-width: 820px; margin: 0 auto; }
+.author-block {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(245,240,232,0.1); margin-bottom: 3rem;
+}
+.author-avatar {
+  width: 4.5rem; height: 4.5rem; border-radius: 50%; flex-shrink: 0;
+  background: rgba(201,168,76,0.15); border: 2px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+}
+.author-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.3rem; }
+.author-info .author-title { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.author-info p { font-size: 0.87rem; color: rgba(245,240,232,0.45); line-height: 1.6; font-family: 'Lora', serif; font-style: italic; }
+
+.more-stories h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 1.5rem; }
+.more-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem; background: rgba(245,240,232,0.04);
+  border: 1px solid rgba(245,240,232,0.08); border-radius: 0.85rem;
+  text-decoration: none; color: var(--cream); transition: background 0.2s;
+  margin-bottom: 0.7rem;
+}
+.more-link:hover { background: rgba(245,240,232,0.08); }
+.more-link-icon { font-size: 1.5rem; flex-shrink: 0; }
+.more-link-text { font-size: 0.9rem; }
+.more-link-text strong { display: block; font-weight: 500; margin-bottom: 0.1rem; }
+.more-link-text span { font-size: 0.78rem; color: rgba(245,240,232,0.4); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 1.5rem 3rem; }
+  .article-wrap { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+  .article-sidebar { position: static; }
+  .image-pair { grid-template-columns: 1fr; }
+  .author-block { flex-direction: column; }
+  .post-footer-section { padding: 3rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="gripsters-guide.html" class="logo">Gripsters<span>Guide</span></a>
+  <ul class="nav-links">
+    <li><a href="gripsters-guide.html">Plan a Trip</a></li>
+    <li><a href="on-the-road.html" class="active">On the Road</a></li>
+    <li><a href="gripsters-guide.html#landing-how">How It Works</a></li>
+    <li><a href="gripsters-guide.html" class="nav-cta">Start Planning</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="post-hero">
+  <!--
+    ═══════════════════════════════════════════
+    HERO IMAGE — Replace the placeholder below
+    ═══════════════════════════════════════════
+    Swap the <div class="hero-placeholder">...</div> block with:
+
+    <img class="hero-img" src="switzerland-hero.jpg"
+         alt="Your description of the image">
+
+    Best results: wide landscape photo, 1920×1080px or larger.
+    The bottom third will be most visible (where the title sits).
+    ═══════════════════════════════════════════
+  -->
+  <div class="hero-placeholder">
+    <div class="hero-placeholder-icon">🏔️</div>
+    <div class="hero-placeholder-text">Switzerland Hero Photo</div>
+    <div class="hero-placeholder-hint">Replace with your best landscape shot — wide format, 1920×1080px+</div>
+  </div>
+
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="on-the-road.html">On the Road</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Switzerland</span>
+    </div>
+    <div class="hero-kicker">Central Europe · Three weeks</div>
+    <h1>Slow trains &amp;<br><em>sharp peaks</em></h1>
+    <div class="hero-meta">
+      <div class="hero-byline">By <strong>The Gripsters</strong> · June 2025 · 12 min read</div>
+      <span class="hero-tag">🏔️ Alpine</span>
+      <span class="hero-tag">🚂 Rail</span>
+      <span class="hero-tag">🧀 Food</span>
+    </div>
+  </div>
+</header>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+
+  <!-- MAIN CONTENT -->
+  <article class="article-body">
+
+    <p class="article-lede">Nobody told us the cheese fondue in Gruyères would be this good. Or that the 7:14am train from Interlaken to Lauterbrunnen, mist still clinging to the valley floor, would be the single best hour of the entire trip. Switzerland kept surprising us — and we'd done our research.</p>
+
+    <!-- ═══════════════════════════════════════
+         WRITE YOUR STORY BELOW
+         Structure guide:
+         - Opening scene / hook (done above as lede)
+         - Journey to Switzerland / arrival
+         - Key destinations (one h2 per place)
+         - Standout moments, meals, encounters
+         - Practical reflections at the end
+         ═══════════════════════════════════════ -->
+
+    <p>We'd been told Switzerland was expensive, efficient, and beautiful. Two out of three of those things turned out to be understatements. The third — the cost — was entirely manageable once we stopped treating it like a budget destination and leaned into what Switzerland actually does best: extraordinary train travel, extraordinary food, and views that make you go quiet.</p>
+
+    <p>This is the story of three weeks moving through a country that rewards slowness. No hire car, no group tour, no ticking off a checklist. Just a Swiss Travel Pass, a very good pair of walking shoes, and the willingness to sit on a train for an hour just because the view out the window was worth it.</p>
+
+    <!-- INLINE IMAGE 1 -->
+    <figure class="post-image">
+      <!--
+        ═══════════════════════════════════════
+        REPLACE THIS BLOCK WITH YOUR IMAGE:
+
+        <img src="switzerland-arrival.jpg"
+             alt="Your caption here — be specific">
+
+        Then update the <figcaption> below.
+        Ideal size: 1200×700px, landscape
+        ═══════════════════════════════════════
+      -->
+      <div class="img-placeholder">
+        <div class="placeholder-icon">📸</div>
+        <div class="placeholder-label">Photo 1 — Arrival / First impressions</div>
+        <div class="placeholder-hint">e.g. Zürich Hauptbahnhof, Lake Geneva, first Alpine view</div>
+        <div class="placeholder-size">Replace with: &lt;img src="your-photo.jpg" alt="description"&gt;</div>
+      </div>
+      <figcaption>Write your caption here — where was this? What time of day? What struck you about it?</figcaption>
+    </figure>
+
+    <h2>Arrival: <em>Zürich, unhurried</em></h2>
+
+    <p>We flew into Zürich and gave ourselves two full days before touching a single mountain. This turned out to be exactly right. The city rewards slow walking: the old town (Altstadt) on both banks of the Limmat river, the guild houses, the paired churches of Grossmünster and Fraumünster facing each other across the water. We ate at a corner table at [YOUR RESTAURANT HERE] and ordered the rösti before we'd even looked at the rest of the menu.</p>
+
+    <p>[ADD YOUR ZÜRICH EXPERIENCE HERE — what did you do, see, eat? Where did you stay? What surprised you?]</p>
+
+    <div class="pull-quote">
+      <p>"The best thing about Switzerland is that it doesn't try to sell itself to you. It just exists, magnificently, and waits for you to notice."</p>
+      <cite>— Written somewhere on the train to Lucerne</cite>
+    </div>
+
+    <!-- TWO-UP IMAGE PAIR -->
+    <div class="image-pair">
+      <figure class="post-image">
+        <!--
+          REPLACE WITH:
+          <img src="zurich-1.jpg" alt="Your description">
+        -->
+        <div class="img-placeholder">
+          <div class="placeholder-icon">📷</div>
+          <div class="placeholder-label">Zürich photo 1</div>
+          <div class="placeholder-hint">e.g. Altstadt, Limmat river, street scene</div>
+        </div>
+        <figcaption>Caption for first Zürich photo</figcaption>
+      </figure>
+      <figure class="post-image">
+        <!--
+          REPLACE WITH:
+          <img src="zurich-2.jpg" alt="Your description">
+        -->
+        <div class="img-placeholder">
+          <div class="placeholder-icon">📷</div>
+          <div class="placeholder-label">Zürich photo 2</div>
+          <div class="placeholder-hint">e.g. food, detail, café, view</div>
+        </div>
+        <figcaption>Caption for second Zürich photo</figcaption>
+      </figure>
+    </div>
+
+    <h2>The Bernese Oberland: <em>taking it slowly</em></h2>
+
+    <p>[WRITE YOUR INTERLAKEN / LAUTERBRUNNEN / GRINDELWALD SECTION HERE]</p>
+    <p>Tell the story of your time in the mountain region. What did you do each day? Which valley? Which train? What did you eat? Any encounters with locals? Moments that stood out?</p>
+
+    <!-- INLINE IMAGE 2 -->
+    <figure class="post-image">
+      <!--
+        REPLACE WITH:
+        <img src="bernese-oberland.jpg" alt="Your description">
+      -->
+      <div class="img-placeholder">
+        <div class="placeholder-icon">📸</div>
+        <div class="placeholder-label">Photo 2 — Bernese Oberland</div>
+        <div class="placeholder-hint">e.g. Lauterbrunnen valley, Jungfrau, mountain village</div>
+        <div class="placeholder-size">Ideal: 1200×700px landscape</div>
+      </div>
+      <figcaption>Caption for your Bernese Oberland photo</figcaption>
+    </figure>
+
+    <div class="info-box">
+      <div class="info-box-title">Gripster's Tips — Bernese Oberland</div>
+      <ul>
+        <li>The Swiss Travel Pass covers all trains, buses and boats — buy it before you leave home</li>
+        <li>[ADD YOUR OWN TIP — e.g. best time to ride to Jungfraujoch]</li>
+        <li>[ADD YOUR OWN TIP — e.g. quieter alternative to Grindelwald]</li>
+        <li>[ADD YOUR OWN TIP — e.g. where you stayed and why]</li>
+        <li>[ADD YOUR OWN TIP — e.g. restaurant or café recommendation]</li>
+      </ul>
+    </div>
+
+    <h2>Gruyères: <em>the fondue that changed everything</em></h2>
+
+    <p>[WRITE YOUR GRUYÈRES SECTION HERE — the medieval village, the cheese experience, the castle, the HR Giger museum if you went, the fondue]</p>
+
+    <!-- INLINE IMAGE 3 -->
+    <figure class="post-image">
+      <!--
+        REPLACE WITH:
+        <img src="gruyeres.jpg" alt="Your description">
+      -->
+      <div class="img-placeholder">
+        <div class="placeholder-icon">📸</div>
+        <div class="placeholder-label">Photo 3 — Gruyères</div>
+        <div class="placeholder-hint">e.g. the village street, fondue, castle, cheese dairy</div>
+        <div class="placeholder-size">Ideal: 1200×700px landscape</div>
+      </div>
+      <figcaption>Caption for your Gruyères photo</figcaption>
+    </figure>
+
+    <h2>Lugano &amp; the Italian side: <em>a different Switzerland</em></h2>
+
+    <p>[WRITE YOUR TICINO / LUGANO SECTION HERE — the Italian-speaking canton, palm trees beside Alpine lakes, the food shift, the light change]</p>
+
+    <!-- TWO-UP IMAGE PAIR -->
+    <div class="image-pair">
+      <figure class="post-image">
+        <div class="img-placeholder">
+          <div class="placeholder-icon">📷</div>
+          <div class="placeholder-label">Lugano / Ticino photo 1</div>
+        </div>
+        <figcaption>Caption</figcaption>
+      </figure>
+      <figure class="post-image">
+        <div class="img-placeholder">
+          <div class="placeholder-icon">📷</div>
+          <div class="placeholder-label">Lugano / Ticino photo 2</div>
+        </div>
+        <figcaption>Caption</figcaption>
+      </figure>
+    </div>
+
+    <h2>What we learned: <em>how to do Switzerland right</em></h2>
+
+    <p>[WRITE YOUR REFLECTIONS HERE — what worked, what you'd do differently, what surprised you, what you'd tell a friend planning the same trip]</p>
+
+    <p>[Final paragraph — close the story with a scene or thought that brings it full circle. A good travel piece ends somewhere emotionally resonant, not just logistically.]</p>
+
+    <div class="info-box">
+      <div class="info-box-title">The Essentials — Switzerland</div>
+      <ul>
+        <li>Best time to visit: [YOUR RECOMMENDATION]</li>
+        <li>Getting around: Swiss Travel Pass — worth every cent for three weeks</li>
+        <li>Where we stayed: [YOUR ACCOMMODATION RECOMMENDATIONS]</li>
+        <li>Don't miss: [YOUR TOP 3 EXPERIENCES]</li>
+        <li>Skip: [HONEST ADVICE ON WHAT'S OVERHYPED]</li>
+        <li>Budget reality: [YOUR HONEST ASSESSMENT]</li>
+      </ul>
+    </div>
+
+    <div class="article-tags">
+      <span class="article-tag">Switzerland</span>
+      <span class="article-tag">Alpine travel</span>
+      <span class="article-tag">Rail travel</span>
+      <span class="article-tag">Independent travel</span>
+      <span class="article-tag">Europe</span>
+      <span class="article-tag">Food & wine</span>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+
+    <!-- Plan this trip CTA -->
+    <div class="plan-cta">
+      <h4>Planning a Switzerland trip?</h4>
+      <p>Let our AI planner build an itinerary shaped around your pace, interests and budget.</p>
+      <a href="gripsters-guide.html" class="btn-plan" onclick="prefillPlanner('Switzerland trip, relaxed pace, rail travel')">Plan my Switzerland trip →</a>
+    </div>
+
+    <!-- Trip facts -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Trip at a glance</div>
+      <div class="trip-fact"><span class="fact-key">Duration</span><span class="fact-val">3 weeks</span></div>
+      <div class="trip-fact"><span class="fact-key">Travel style</span><span class="fact-val">Rail pass, independent</span></div>
+      <div class="trip-fact"><span class="fact-key">Regions</span><span class="fact-val">Zürich, Bern, Bernese Oberland, Ticino</span></div>
+      <div class="trip-fact"><span class="fact-key">Best for</span><span class="fact-val">Scenery, food, walking, rail</span></div>
+      <div class="trip-fact"><span class="fact-key">Season</span><span class="fact-val">June — ideal</span></div>
+      <div class="trip-fact"><span class="fact-key">Pace</span><span class="fact-val">Relaxed — 2–3 nights per stop</span></div>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">In this story</div>
+      <a href="#" class="toc-link">Arrival: Zürich, unhurried</a>
+      <a href="#" class="toc-link">The Bernese Oberland</a>
+      <a href="#" class="toc-link">Gruyères: the fondue</a>
+      <a href="#" class="toc-link">Lugano & the Italian side</a>
+      <a href="#" class="toc-link">What we learned</a>
+      <a href="#" class="toc-link">The essentials</a>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- POST FOOTER -->
+<div class="post-footer-section">
+  <div class="post-footer-inner">
+
+    <!-- Author -->
+    <div class="author-block">
+      <div class="author-avatar">✈️</div>
+      <div class="author-info">
+        <h4>The Gripsters</h4>
+        <div class="author-title">On the Road · Gripsters Guide</div>
+        <p>[Write a short 2–3 sentence author bio here. Where are you based? How long have you been travelling independently? What kind of trips do you love? Keep it personal and genuine — this is the human element that builds trust with readers.]</p>
+      </div>
+    </div>
+
+    <!-- More stories -->
+    <div class="more-stories">
+      <h3>More from On the Road</h3>
+      <a href="on-the-road.html" class="more-link">
+        <div class="more-link-icon">🗺️</div>
+        <div class="more-link-text">
+          <strong>All travel stories</strong>
+          <span>Back to the On the Road archive</span>
+        </div>
+      </a>
+      <a href="gripsters-guide.html" class="more-link">
+        <div class="more-link-icon">🤖</div>
+        <div class="more-link-text">
+          <strong>Inspired? Plan your own trip</strong>
+          <span>Use our AI planner to build an itinerary around you</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Pre-fill the AI planner when clicking "Plan my trip" from a post
+function prefillPlanner(destination) {
+  localStorage.setItem('gg_prefill', destination);
+}
+</script>
+
+</body>
+</html>
