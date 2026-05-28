@@ -863,6 +863,23 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
             <div class="chip" onclick="this.classList.toggle('selected')">It varies</div>
           </div>
         </div>
+        <div class="field-group">
+          <label class="field-label">Preferred transport modes <span style="color:var(--dusty);font-weight:300">(select all that apply)</span></label>
+          <div class="tile-grid wide" id="ob-transport-grid">
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚂</span><span class="tile-name">Rail / Train</span><span class="tile-desc">Intercity & scenic routes</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚗</span><span class="tile-name">Hire car</span><span class="tile-desc">Freedom to roam at own pace</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚌</span><span class="tile-name">Local bus / coach</span><span class="tile-desc">Affordable, local experience</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🛥️</span><span class="tile-name">Ferry / boat</span><span class="tile-desc">Islands, rivers & coastal routes</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚲</span><span class="tile-name">Cycling</span><span class="tile-desc">e-bikes welcome too</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚶</span><span class="tile-name">Walking / hiking</span><span class="tile-desc">On foot wherever possible</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">🚕</span><span class="tile-name">Rideshare</span><span class="tile-desc">Uber, taxis & local apps</span></div>
+            <div class="tile" onclick="this.classList.toggle('selected')"><span class="tile-icon">✈️</span><span class="tile-name">Domestic flights</span><span class="tile-desc">For longer distances</span></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Any transport notes? <span style="color:var(--dusty);font-weight:300">(optional)</span></label>
+          <textarea class="text-area" id="ob-transport-extra" placeholder="e.g. Always prefer scenic rail over flying. Happy to rent a campervan. Avoid driving in city centres..."></textarea>
+        </div>
         <div class="ob-nav-buttons">
           <button class="btn-back" onclick="obPrev()">← Back</button>
           <span class="ob-step-counter">2 of 6</span>
@@ -1236,13 +1253,17 @@ function obComplete() {
   const budget      = document.getElementById('ob-budget-display').textContent;
   const walk        = document.getElementById('ob-walk-display').textContent;
   const interests   = [...document.querySelectorAll('.tile-grid.wide .tile.selected')]
+    .filter(t => t.closest('#ob-step-3'))
     .map(t => t.querySelector('.tile-name').textContent).join(', ') || 'Varied';
+  const transport   = [...document.querySelectorAll('#ob-transport-grid .tile.selected')]
+    .map(t => t.querySelector('.tile-name').textContent).join(', ') || 'Not specified';
   const diet        = [...document.querySelectorAll('#ob-step-5 .chip.selected')]
     .map(c => c.textContent).slice(0, 3).join(', ') || 'No restrictions';
   const smallGroups = document.getElementById('ob-small-groups').checked;
 
-  const profile = { firstName, homeCity, airport, budget, walk, interests, diet, smallGroups,
+  const profile = { firstName, homeCity, airport, budget, walk, interests, transport, diet, smallGroups,
     extra: document.getElementById('ob-interests-extra').value,
+    transportExtra: document.getElementById('ob-transport-extra').value,
     rules: document.getElementById('ob-extra-rules').value };
   localStorage.setItem('gg_profile', JSON.stringify(profile));
   localStorage.setItem('gg_first_name', firstName);
@@ -1262,6 +1283,7 @@ function obComplete() {
     <div class="summary-row"><span class="summary-key">Airport</span><span class="summary-val">${airport}</span></div>
     <div class="summary-row"><span class="summary-key">Accommodation budget</span><span class="summary-val">${budget}</span></div>
     <div class="summary-row"><span class="summary-key">Daily walking comfort</span><span class="summary-val">${walk}</span></div>
+    <div class="summary-row"><span class="summary-key">Transport preferences</span><span class="summary-val">${transport}</span></div>
     <div class="summary-row"><span class="summary-key">Interests</span><span class="summary-val">${interests}</span></div>
     <div class="summary-row"><span class="summary-key">Dietary needs</span><span class="summary-val">${diet}</span></div>
     <div class="summary-row"><span class="summary-key">Small group tours</span><span class="summary-val">${smallGroups ? '✓ Welcome' : 'Not preferred'}</span></div>
@@ -1537,10 +1559,12 @@ TRAVELLER PROFILE FOR ${p.firstName.toUpperCase()}:
 - Home base: ${p.homeCity} | Preferred airport: ${p.airport}
 - Accommodation budget: ${p.budget}
 - Comfortable daily walking distance: ${p.walk}
+- Preferred transport modes: ${p.transport || 'Not specified'}
 - Travel interests: ${p.interests}
 - Dietary requirements: ${p.diet}
 - Small group tours (wineries, cooking classes etc): ${p.smallGroups ? 'Welcome' : 'Not preferred'}
 ${p.extra ? '- Additional interests: ' + p.extra : ''}
+${p.transportExtra ? '- Transport notes: ' + p.transportExtra : ''}
 ${p.rules ? '- Personal rules: ' + p.rules : ''}
 
 YOUR PERSONALITY: Warm, knowledgeable, slightly witty — like a well-travelled friend. Never condescending. Treat ${p.firstName} as a competent adult. Never suggest anything "suitable for older travellers" unless specifically asked.
@@ -1552,6 +1576,7 @@ ALWAYS in itineraries:
 - Include local restaurant picks (not tourist traps); respect dietary needs
 - Mention nearest pharmacy/hospital for each destination region
 - Build in rest time and a relaxed pace unless asked otherwise
+- Prioritise the traveller's preferred transport modes in all route and logistics suggestions; if they prefer rail, default to train connections not driving; if they prefer hire car, suggest road routes and parking
 ${p.smallGroups ? '- Small group experiences (wineries, cooking classes, guided walks) are welcome' : '- Avoid group tours unless explicitly requested'}
 - NEVER suggest group package tours or cruise ships`;
   } else {
