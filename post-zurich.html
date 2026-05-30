@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zürich: Expensive, Efficient & Magnificent — On the Road — Gripsters Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--terracotta); text-decoration: none; }
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--dusty); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; }
+.nav-cta:hover { background: #a8501f !important; }
+
+/* HERO */
+.post-hero {
+  min-height: 88vh; position: relative;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 40%;
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.96) 0%, rgba(26,18,8,0.4) 45%, rgba(26,18,8,0.15) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: 0 5rem 4rem; max-width: 860px;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(245,240,232,0.4); margin-bottom: 1.5rem;
+}
+.breadcrumb a { color: rgba(245,240,232,0.4); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb-sep { opacity: 0.3; }
+.hero-kicker {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.hero-kicker::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--cream); margin-bottom: 1.2rem;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.hero-byline { font-size: 0.85rem; color: rgba(245,240,232,0.5); }
+.hero-byline strong { color: rgba(245,240,232,0.8); font-weight: 500; }
+.hero-tag {
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  background: rgba(201,168,76,0.18); color: var(--gold);
+  padding: 0.22rem 0.7rem; border-radius: 2rem; border: 1px solid rgba(201,168,76,0.3);
+}
+
+/* ARTICLE */
+.article-wrap {
+  display: grid; grid-template-columns: 1fr 270px;
+  gap: 4rem; max-width: 1080px; margin: 0 auto; padding: 5rem 3rem;
+}
+.article-body { min-width: 0; }
+
+.article-lede {
+  font-family: 'Lora', serif; font-size: 1.25rem; line-height: 1.8;
+  color: var(--ink); font-weight: 400; margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+}
+
+.article-body p {
+  font-family: 'Lora', serif; font-size: 1.02rem; line-height: 1.88;
+  color: #2d2318; margin-bottom: 1.6rem;
+}
+
+.article-body a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 3px; }
+.article-body a:hover { color: #a8501f; }
+
+.article-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem; font-weight: 700; line-height: 1.2;
+  margin: 3rem 0 1.1rem; letter-spacing: -0.02em;
+}
+.article-body h2 em { font-style: italic; color: var(--terracotta); }
+
+/* Day header */
+.day-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 2.8rem 0 1.2rem;
+}
+.day-pill {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--terracotta); color: white;
+  padding: 0.3rem 0.8rem; border-radius: 2rem; flex-shrink: 0;
+}
+.day-title {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+.day-title em { font-style: italic; color: var(--terracotta); }
+
+/* Pull quote */
+.pull-quote {
+  margin: 2.5rem 0; padding: 1.6rem 1.8rem;
+  border-left: 3px solid var(--terracotta);
+  background: var(--warm); border-radius: 0 0.75rem 0.75rem 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; line-height: 1.6; font-style: italic;
+  color: var(--ink); margin-bottom: 0 !important;
+}
+
+/* Hint box */
+.hint-box {
+  margin: 2rem 0; padding: 1.2rem 1.5rem;
+  background: var(--light-sage); border-radius: 0.85rem;
+  border: 1px solid rgba(122,158,126,0.25);
+  display: flex; gap: 0.8rem; align-items: flex-start;
+}
+.hint-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+.hint-content { flex: 1; }
+.hint-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.3rem;
+}
+.hint-content p {
+  font-family: 'Lora', serif; font-size: 0.9rem; line-height: 1.6;
+  color: var(--ink); margin-bottom: 0 !important;
+}
+
+/* Images */
+.post-image { margin: 2.2rem 0; border-radius: 1rem; overflow: hidden; }
+.post-image img { width: 100%; display: block; max-height: 600px; object-fit: cover; }
+.post-image figcaption {
+  padding: 0.65rem 1rem; font-size: 0.78rem; color: var(--dusty);
+  font-style: italic; background: white;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 1rem 1rem;
+}
+.image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 2.2rem 0; }
+.image-pair .post-image { margin: 0; }
+.image-pair .post-image img { max-height: 320px; }
+
+/* Pros/cons */
+.pros-cons {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin: 2.5rem 0;
+}
+.pros, .cons {
+  padding: 1.3rem 1.5rem; border-radius: 0.85rem;
+}
+.pros { background: var(--light-sage); border: 1px solid rgba(122,158,126,0.2); }
+.cons { background: rgba(196,98,45,0.06); border: 1px solid rgba(196,98,45,0.15); }
+.pc-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.pros .pc-title { color: var(--sage); }
+.cons .pc-title { color: var(--terracotta); }
+.pc-list { list-style: none; }
+.pc-list li {
+  font-family: 'Lora', serif; font-size: 0.88rem; color: var(--ink);
+  padding: 0.28rem 0; border-bottom: 1px solid rgba(140,123,107,0.1);
+  display: flex; gap: 0.5rem; line-height: 1.4;
+}
+.pc-list li:last-child { border-bottom: none; }
+.pros .pc-list li::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
+.cons .pc-list li::before { content: '✗'; color: var(--terracotta); font-weight: 700; flex-shrink: 0; }
+
+/* Article tags */
+.article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
+.article-tag {
+  font-size: 0.77rem; font-weight: 500;
+  background: var(--warm); color: var(--dusty);
+  padding: 0.28rem 0.75rem; border-radius: 2rem; border: 1px solid var(--border);
+}
+
+/* SIDEBAR */
+.article-sidebar { position: sticky; top: 5.5rem; height: fit-content; }
+.sidebar-card {
+  background: white; border-radius: 1.2rem; padding: 1.4rem;
+  border: 1px solid var(--border); margin-bottom: 1.1rem;
+}
+.sidebar-card-title {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dusty); margin-bottom: 0.9rem;
+}
+.trip-fact { display: flex; justify-content: space-between; padding: 0.42rem 0; border-bottom: 1px solid var(--border); font-size: 0.84rem; }
+.trip-fact:last-child { border-bottom: none; }
+.fact-key { color: var(--dusty); }
+.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 58%; }
+.plan-cta { background: var(--terracotta); border-radius: 1.2rem; padding: 1.4rem; text-align: center; margin-bottom: 1.1rem; }
+.plan-cta h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-weight: 700; margin-bottom: 0.35rem; }
+.plan-cta p { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 0.9rem; line-height: 1.5; }
+.btn-plan {
+  display: block; background: white; color: var(--terracotta);
+  padding: 0.65rem 1rem; border-radius: 2rem; text-decoration: none;
+  font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+}
+.btn-plan:hover { background: var(--cream); }
+.toc-link {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.83rem; color: var(--dusty); padding: 0.32rem 0;
+  text-decoration: none; border-bottom: 1px solid rgba(140,123,107,0.1); transition: color 0.2s;
+}
+.toc-link:last-child { border-bottom: none; }
+.toc-link:hover { color: var(--terracotta); }
+.toc-link::before { content: '·'; color: var(--terracotta); font-weight: 700; }
+
+/* POST FOOTER */
+.post-footer-section { background: var(--ink); padding: 4rem 5rem; margin-top: 2rem; }
+.post-footer-inner { max-width: 820px; margin: 0 auto; }
+.author-block {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(245,240,232,0.1); margin-bottom: 3rem;
+}
+.author-avatar {
+  width: 4.5rem; height: 4.5rem; border-radius: 50%; flex-shrink: 0;
+  background: rgba(201,168,76,0.15); border: 2px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+}
+.author-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.25rem; }
+.author-title { font-size: 0.76rem; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.author-info p { font-size: 0.86rem; color: rgba(245,240,232,0.42); line-height: 1.6; font-family: 'Lora', serif; font-style: italic; }
+.more-stories h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 1.4rem; }
+.more-link {
+  display: flex; align-items: center; gap: 1rem; padding: 1rem;
+  background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.08);
+  border-radius: 0.85rem; text-decoration: none; color: var(--cream);
+  transition: background 0.2s; margin-bottom: 0.7rem;
+}
+.more-link:hover { background: rgba(245,240,232,0.08); }
+.more-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+.more-link-text strong { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 0.1rem; }
+.more-link-text span { font-size: 0.76rem; color: rgba(245,240,232,0.38); }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 1.5rem 3rem; }
+  .article-wrap { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+  .article-sidebar { position: static; }
+  .image-pair { grid-template-columns: 1fr; }
+  .pros-cons { grid-template-columns: 1fr; }
+  .post-footer-section { padding: 3rem 1.5rem; }
+  .author-block { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Gripsters<span>Guide</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Plan a Trip</a></li>
+    <li><a href="on-the-road.html" class="active">On the Road</a></li>
+    <li><a href="index.html">How It Works</a></li>
+    <li><a href="index.html" class="nav-cta">Start Planning</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="post-hero">
+  <img class="hero-img" src="ZurichNight.JPG" alt="Grossmünster cathedral illuminated at night, reflected in the Limmat river, Zürich">
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="on-the-road.html">On the Road</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Switzerland</span>
+      <span class="breadcrumb-sep">/</span>
+      <span>Zürich</span>
+    </div>
+    <div class="hero-kicker">Switzerland · January · 2 days</div>
+    <h1 class="hero"><em>Zürich:</em> expensive,<br>efficient & magnificent</h1>
+    <div class="hero-meta">
+      <div class="hero-byline">By <strong>The Gripsters</strong> · January 2025 · 8 min read</div>
+      <span class="hero-tag">🏛️ Museums</span>
+      <span class="hero-tag">🚂 Rail</span>
+      <span class="hero-tag">🍽️ Food</span>
+    </div>
+  </div>
+</header>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+  <article class="article-body">
+
+    <p class="article-lede">They told us Switzerland would be expensive, efficient and beautiful. Two out of three turned out to be understatements. The third — the cost — was manageable once we stopped fighting it and just leaned in. Zürich is not a city that apologises for itself, and honestly, why should it?</p>
+
+    <div class="day-header">
+      <span class="day-pill">Day 1</span>
+      <div class="day-title">14th January — <em>Arrival</em></div>
+    </div>
+
+    <p>We landed at Zürich Airport at 8am and the first order of business was finding somewhere warm to change clothes. It was 1°C outside. Switzerland doesn't ease you in gently.</p>
+
+    <p>There was a brief comedy of errors involving a bus to the wrong terminal and some optimistic guesswork about which train platform to use, but we eventually sorted ourselves out and — using our <a href="https://www.eurail.com/en" target="_blank">Eurail Pass</a> for the first time — arrived at our accommodation, <a href="https://hotel-altstadt.ch/en/" target="_blank">The Altstadt Hotel</a>, around midday. Thankfully our room was ready and the concierge let us check in early. Small victory, big relief.</p>
+
+    <div class="hint-box">
+      <div class="hint-icon">💡</div>
+      <div class="hint-content">
+        <div class="hint-label">Gripster Hint</div>
+        <p>Switzerland is not part of the European Union, which means their power points are different from everyone else's. There was no USB adapter anywhere in the room — we had to borrow one from the front desk. The staff were entirely unsurprised. If you're staying for any length of time, buy a Swiss adapter before you arrive.</p>
+      </div>
+    </div>
+
+    <!-- Image pair: red hat portrait + Limmat river daytime -->
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Zurich1.JPEG" alt="On the bridge over the Limmat, Altstadt behind, St Peter's church tower visible">
+        <figcaption>First afternoon wander — the Altstadt from the Münsterbrücke bridge</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Zurich3.jpg" alt="The Limmat river with stone bridge, covered boats and Grossmünster tower, Zürich">
+        <figcaption>The Limmat in January — quiet, cold, and completely beautiful</figcaption>
+      </figure>
+    </div>
+
+    <p>Once that was sorted we wandered the old town — the <em>Altstadt</em> — and found lunch at a nice little bakery. Soup, bread and coffee for 24 CHF. Not too bad for one of the most expensive cities on earth.</p>
+
+    <p>With the cost of everything in mind we continued wandering and, on this clear and very cold afternoon, bought a few groceries for breakfast and a bottle of relatively inexpensive whisky — from Aldi. You find ways.</p>
+
+    <p>After that exertion we rested until dinner at the old established Swiss restaurant <a href="https://www.zeughauskeller.ch/home" target="_blank">Zeughauskeller</a>. It had exactly the clichéd mediaeval-hall ambience you'd expect — vaulted ceilings, long wooden tables, waitstaff who have seen everything — and the schnitzel wasn't bad. But it wasn't worth 100 CHF ($170 AUD). The beer, however, was excellent.</p>
+
+    <!-- Image pair: Zeughauskeller interior + schnitzel -->
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Zeughauskeller2.JPEG" alt="Inside Zeughauskeller restaurant, warm lighting, wooden beams, arched windows, wine glass on table">
+        <figcaption>Zeughauskeller — the atmosphere is genuinely excellent. The bill, less so.</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Zeughauskeller1.JPEG" alt="Schnitzel with rösti and cranberry sauce at Zeughauskeller, Zürich">
+        <figcaption>The schnitzel. Enormous. 100 CHF. The rösti beside it was the best thing on the table.</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-header">
+      <span class="day-pill">Day 2</span>
+      <div class="day-title">15th January — <em>The museums</em></div>
+    </div>
+
+    <p>After Aldi Bircher Muesli for breakfast — a decision we stand by — we headed to the <a href="https://www.kunsthaus.ch/en/" target="_blank">Kunsthaus Art Museum</a>. It turned out to be one of the most rewarding mornings of the entire trip.</p>
+
+    <p>The collection spans old masters and contemporary work, but what stopped us cold was the <a href="https://www.kunsthaus.ch/en/sammlung/private-sammlungen/emil-buehrle/" target="_blank">Emil Bührle collection</a>. Bührle was a Swiss arms manufacturer whose wealth was built partly on selling weapons to both the Nazis and the Allies, and a significant portion of his art collection was acquired from Jewish families who were forced to sell to fund their escape from Nazi persecution. The Kunsthaus made the decision to show the collection alongside the full context of its provenance — with surveys you could fill in along the way, contributing to the ongoing conversation about whether it should be shown at all. Confronting, necessary, and exactly the kind of thing a good museum should be doing.</p>
+
+    <!-- Kunsthaus black and white circular window shot -->
+    <figure class="post-image">
+      <img src="IMG_7588.JPEG" alt="View through circular concrete window of Kunsthaus Zürich courtyard, lone figure walking below, black and white">
+      <figcaption>Looking down into the Kunsthaus courtyard — one of those accidental shots that turns out to be the best of the day</figcaption>
+    </figure>
+
+    <p>By way of thanking the staff at The Altstadt Hotel for the adapter loan, we had lunch there. Two cheese and tomato toasties: 19 CHF ($33 AUD). Yes, $33 Australian dollars. For toasties. We tipped anyway.</p>
+
+    <p>Fuelled by our expensive snack we headed to the <a href="https://www.landesmuseum.ch/en" target="_blank">Swiss National Museum</a>, housed in a castle-like building that turns out to be the perfect container for what's inside. There's a huge amount of content — the history of Switzerland, its political system, its geology — and some extraordinary intact grand rooms from a noble family's house, carved entirely from wood. Whether they used a Swiss army knife, we couldn't confirm.</p>
+
+    <!-- Museum exterior + carved interior -->
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Museum1.JPEG" alt="Swiss National Museum entrance tower with Kolonial exhibition banner, Zürich">
+        <figcaption>The Swiss National Museum — that "Kolonial" banner is doing a lot of honest work</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Museum2.JPEG" alt="Richly carved wooden panelled room with ornate green tiled stove at the Swiss National Museum">
+        <figcaption>One of the transplanted noble family rooms — the tiled stove alone is worth the visit</figcaption>
+      </figure>
+    </div>
+
+    <p>There was also a significant exhibition about Swiss colonialism — a reminder that political neutrality and economic exploitation are not mutually exclusive. The Swiss were in Africa and Asia like everyone else. Hello, Nestlé.</p>
+
+    <div class="pull-quote">
+      <p>"Switzerland doesn't try to sell itself to you. It just exists, magnificently, and waits for you to notice."</p>
+    </div>
+
+    <p>For dinner we walked to <a href="https://europaallee.ch/en/" target="_blank">Europaallee</a>, a newer, hipper precinct with a variety of options — Asian, Italian, traditional Swiss. We opted for dumplings, rice and soup to share.</p>
+
+    <div class="hint-box">
+      <div class="hint-icon">💡</div>
+      <div class="hint-content">
+        <div class="hint-label">Gripster Hint</div>
+        <p>In Switzerland — or anywhere, really — you know a place is good value when it's full of students. Europaallee was packed with them. Follow the students.</p>
+      </div>
+    </div>
+
+    <!-- Europaallee interior -->
+    <figure class="post-image">
+      <img src="Europallee.JPEG" alt="Busy Europaallee dining hall in Zürich, full of young people on stepped seating, plants and industrial ceiling">
+      <figcaption>Europaallee on a January evening — warm, buzzing, and noticeably cheaper than everywhere else we'd eaten</figcaption>
+    </figure>
+
+    <h2>Zürich: the <em>verdict</em></h2>
+
+    <p>Two days in Zürich left us with a clear picture of the city: genuinely world-class infrastructure, genuinely world-class museums, and a bill that makes you briefly reconsider your choices. We'd go back. We'd just pack more snacks.</p>
+
+    <div class="pros-cons">
+      <div class="pros">
+        <div class="pc-title">What we loved</div>
+        <ul class="pc-list">
+          <li>Trains and trams — effortless</li>
+          <li>The museums — exceptional</li>
+          <li>Cleanliness of the city</li>
+          <li>Public toilets — genuinely great</li>
+          <li>Coop supermarkets</li>
+          <li>Very few cars in the centre</li>
+          <li>Alcohol not too expensive</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <div class="pc-title">What to know</div>
+        <ul class="pc-list">
+          <li>Eating out is expensive</li>
+          <li>A lot of smoking everywhere</li>
+          <li>Locals tend to keep to themselves</li>
+          <li>Different power points — bring an adapter</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-tags">
+      <span class="article-tag">Zürich</span>
+      <span class="article-tag">Switzerland</span>
+      <span class="article-tag">Museums</span>
+      <span class="article-tag">Rail travel</span>
+      <span class="article-tag">Independent travel</span>
+      <span class="article-tag">Winter travel</span>
+      <span class="article-tag">Europe</span>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="plan-cta">
+      <h4>Planning a Swiss trip?</h4>
+      <p>Let our AI planner build an itinerary around your pace and budget.</p>
+      <a href="index.html" class="btn-plan">Plan my Switzerland trip →</a>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Zürich at a glance</div>
+      <div class="trip-fact"><span class="fact-key">When</span><span class="fact-val">January 2025</span></div>
+      <div class="trip-fact"><span class="fact-key">Duration</span><span class="fact-val">2 days</span></div>
+      <div class="trip-fact"><span class="fact-key">Getting there</span><span class="fact-val">Eurail Pass from airport</span></div>
+      <div class="trip-fact"><span class="fact-key">Stayed at</span><span class="fact-val"><a href="https://hotel-altstadt.ch/en/" target="_blank" style="color:var(--terracotta)">The Altstadt Hotel</a></span></div>
+      <div class="trip-fact"><span class="fact-key">Best meal</span><span class="fact-val">Dumplings at Europaallee</span></div>
+      <div class="trip-fact"><span class="fact-key">Don't miss</span><span class="fact-val">Kunsthaus & Swiss National Museum</span></div>
+      <div class="trip-fact"><span class="fact-key">Bring</span><span class="fact-val">Swiss power adapter</span></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">In this post</div>
+      <a href="#" class="toc-link">Day 1 — Arrival</a>
+      <a href="#" class="toc-link">Day 2 — The museums</a>
+      <a href="#" class="toc-link">Zeughauskeller dinner</a>
+      <a href="#" class="toc-link">Europaallee</a>
+      <a href="#" class="toc-link">The verdict</a>
+    </div>
+  </aside>
+</div>
+
+<!-- POST FOOTER -->
+<div class="post-footer-section">
+  <div class="post-footer-inner">
+    <div class="author-block">
+      <div class="author-avatar">✈️</div>
+      <div class="author-info">
+        <h4>The Gripsters</h4>
+        <div class="author-title">On the Road · Gripsters Guide</div>
+        <p>Independent travellers, occasional Aldi shoppers, firm believers that the best meal of any trip is usually found by following the students. We write honestly about where we go, what it costs, and what's actually worth your time.</p>
+      </div>
+    </div>
+    <div class="more-stories">
+      <h3>More from On the Road</h3>
+      <a href="on-the-road.html" class="more-link">
+        <div class="more-link-icon">🗺️</div>
+        <div class="more-link-text">
+          <strong>All travel stories</strong>
+          <span>Back to the On the Road archive</span>
+        </div>
+      </a>
+      <a href="index.html" class="more-link">
+        <div class="more-link-icon">🤖</div>
+        <div class="more-link-text">
+          <strong>Inspired? Plan your own Swiss trip</strong>
+          <span>Use our AI planner to build an itinerary around you</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

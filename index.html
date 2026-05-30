@@ -660,6 +660,7 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
   <ul class="nav-links">
     <li><a href="#" onclick="showLandingSection('how'); return false;">How It Works</a></li>
     <li><a href="#" onclick="showLandingSection('features'); return false;">For You</a></li>
+    <li><a href="on-the-road.html">On the Road</a></li>
     <li><a href="#" onclick="startOnboarding(); return false;">Create Profile</a></li>
     <li><a href="#" class="nav-cta" onclick="goToPlanner(); return false;">Plan a Trip</a></li>
   </ul>
@@ -1638,7 +1639,7 @@ async function sendMessage() {
   chatHistory.push({ role: 'user', content: text });
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
