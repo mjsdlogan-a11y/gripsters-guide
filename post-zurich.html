@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zürich: Expensive, Efficient & Magnificent — On the Road — Gripsters Guide</title>
+<title>Zürich — On the Road — Gripsters Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -37,7 +37,6 @@ nav {
 .nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; }
 .nav-cta:hover { background: #a8501f !important; }
 
-/* HERO */
 .post-hero {
   min-height: 88vh; position: relative;
   display: flex; align-items: flex-end; overflow: hidden;
@@ -83,17 +82,17 @@ nav {
   padding: 0.22rem 0.7rem; border-radius: 2rem; border: 1px solid rgba(201,168,76,0.3);
 }
 
-/* ARTICLE */
 .article-wrap {
   display: grid; grid-template-columns: 1fr 270px;
   gap: 4rem; max-width: 1080px; margin: 0 auto; padding: 5rem 3rem;
 }
 .article-body { min-width: 0; }
 
-.article-lede {
-  font-family: 'Lora', serif; font-size: 1.25rem; line-height: 1.8;
+.article-intro {
+  font-family: 'Lora', serif; font-size: 1.15rem; line-height: 1.85;
   color: var(--ink); font-weight: 400; margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+  padding-bottom: 2.5rem; border-bottom: 2px solid var(--border);
+  font-style: italic;
 }
 
 .article-body p {
@@ -104,99 +103,71 @@ nav {
 .article-body a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 3px; }
 .article-body a:hover { color: #a8501f; }
 
-.article-body h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.65rem; font-weight: 700; line-height: 1.2;
-  margin: 3rem 0 1.1rem; letter-spacing: -0.02em;
-}
-.article-body h2 em { font-style: italic; color: var(--terracotta); }
-
-/* Day header */
 .day-header {
   display: flex; align-items: center; gap: 1rem;
-  margin: 2.8rem 0 1.2rem;
+  margin: 3rem 0 1.4rem;
 }
 .day-pill {
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   background: var(--terracotta); color: white;
-  padding: 0.3rem 0.8rem; border-radius: 2rem; flex-shrink: 0;
+  padding: 0.3rem 0.85rem; border-radius: 2rem; flex-shrink: 0;
 }
 .day-title {
   font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
   line-height: 1.2; letter-spacing: -0.01em;
 }
-.day-title em { font-style: italic; color: var(--terracotta); }
 
-/* Pull quote */
-.pull-quote {
-  margin: 2.5rem 0; padding: 1.6rem 1.8rem;
-  border-left: 3px solid var(--terracotta);
-  background: var(--warm); border-radius: 0 0.75rem 0.75rem 0;
-}
-.pull-quote p {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem; line-height: 1.6; font-style: italic;
-  color: var(--ink); margin-bottom: 0 !important;
-}
-
-/* Hint box */
 .hint-box {
   margin: 2rem 0; padding: 1.2rem 1.5rem;
   background: var(--light-sage); border-radius: 0.85rem;
   border: 1px solid rgba(122,158,126,0.25);
   display: flex; gap: 0.8rem; align-items: flex-start;
 }
-.hint-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+.hint-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.15rem; }
 .hint-content { flex: 1; }
 .hint-label {
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--sage); margin-bottom: 0.3rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.35rem;
 }
 .hint-content p {
-  font-family: 'Lora', serif; font-size: 0.9rem; line-height: 1.6;
+  font-family: 'Lora', serif; font-size: 0.92rem; line-height: 1.65;
   color: var(--ink); margin-bottom: 0 !important;
 }
 
-/* Images */
 .post-image { margin: 2.2rem 0; border-radius: 1rem; overflow: hidden; }
 .post-image img { width: 100%; display: block; max-height: 600px; object-fit: cover; }
 .post-image figcaption {
-  padding: 0.65rem 1rem; font-size: 0.78rem; color: var(--dusty);
+  padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--dusty);
   font-style: italic; background: white;
   border: 1px solid var(--border); border-top: none;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 0 0 1rem 1rem; line-height: 1.5;
 }
 .image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 2.2rem 0; }
 .image-pair .post-image { margin: 0; }
 .image-pair .post-image img { max-height: 320px; }
 
-/* Pros/cons */
 .pros-cons {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 1rem; margin: 2.5rem 0;
 }
-.pros, .cons {
-  padding: 1.3rem 1.5rem; border-radius: 0.85rem;
-}
+.pros, .cons { padding: 1.3rem 1.5rem; border-radius: 0.85rem; }
 .pros { background: var(--light-sage); border: 1px solid rgba(122,158,126,0.2); }
 .cons { background: rgba(196,98,45,0.06); border: 1px solid rgba(196,98,45,0.15); }
 .pc-title {
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;
 }
 .pros .pc-title { color: var(--sage); }
 .cons .pc-title { color: var(--terracotta); }
 .pc-list { list-style: none; }
 .pc-list li {
-  font-family: 'Lora', serif; font-size: 0.88rem; color: var(--ink);
-  padding: 0.28rem 0; border-bottom: 1px solid rgba(140,123,107,0.1);
+  font-family: 'Lora', serif; font-size: 0.9rem; color: var(--ink);
+  padding: 0.3rem 0; border-bottom: 1px solid rgba(140,123,107,0.1);
   display: flex; gap: 0.5rem; line-height: 1.4;
 }
 .pc-list li:last-child { border-bottom: none; }
 .pros .pc-list li::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
 .cons .pc-list li::before { content: '✗'; color: var(--terracotta); font-weight: 700; flex-shrink: 0; }
 
-/* Article tags */
 .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
 .article-tag {
   font-size: 0.77rem; font-weight: 500;
@@ -204,7 +175,6 @@ nav {
   padding: 0.28rem 0.75rem; border-radius: 2rem; border: 1px solid var(--border);
 }
 
-/* SIDEBAR */
 .article-sidebar { position: sticky; top: 5.5rem; height: fit-content; }
 .sidebar-card {
   background: white; border-radius: 1.2rem; padding: 1.4rem;
@@ -217,7 +187,10 @@ nav {
 .trip-fact { display: flex; justify-content: space-between; padding: 0.42rem 0; border-bottom: 1px solid var(--border); font-size: 0.84rem; }
 .trip-fact:last-child { border-bottom: none; }
 .fact-key { color: var(--dusty); }
-.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 58%; }
+.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 60%; }
+.fact-val a { color: var(--terracotta); text-decoration: none; }
+.fact-val a:hover { text-decoration: underline; }
+
 .plan-cta { background: var(--terracotta); border-radius: 1.2rem; padding: 1.4rem; text-align: center; margin-bottom: 1.1rem; }
 .plan-cta h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-weight: 700; margin-bottom: 0.35rem; }
 .plan-cta p { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 0.9rem; line-height: 1.5; }
@@ -227,6 +200,7 @@ nav {
   font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
 }
 .btn-plan:hover { background: var(--cream); }
+
 .toc-link {
   display: flex; align-items: center; gap: 0.4rem;
   font-size: 0.83rem; color: var(--dusty); padding: 0.32rem 0;
@@ -236,7 +210,6 @@ nav {
 .toc-link:hover { color: var(--terracotta); }
 .toc-link::before { content: '·'; color: var(--terracotta); font-weight: 700; }
 
-/* POST FOOTER */
 .post-footer-section { background: var(--ink); padding: 4rem 5rem; margin-top: 2rem; }
 .post-footer-inner { max-width: 820px; margin: 0 auto; }
 .author-block {
@@ -288,7 +261,6 @@ nav {
   </ul>
 </nav>
 
-<!-- HERO -->
 <header class="post-hero">
   <img class="hero-img" src="ZurichNight.JPG" alt="Grossmünster cathedral illuminated at night, reflected in the Limmat river, Zürich">
   <div class="hero-gradient"></div>
@@ -300,8 +272,8 @@ nav {
       <span class="breadcrumb-sep">/</span>
       <span>Zürich</span>
     </div>
-    <div class="hero-kicker">Switzerland · January · 2 days</div>
-    <h1 class="hero"><em>Zürich:</em> expensive,<br>efficient & magnificent</h1>
+    <div class="hero-kicker">Switzerland · January 2025 · 2 days</div>
+    <h1 class="hero"><em>Zürich</em></h1>
     <div class="hero-meta">
       <div class="hero-byline">By <strong>The Gripsters</strong> · January 2025 · 8 min read</div>
       <span class="hero-tag">🏛️ Museums</span>
@@ -311,136 +283,128 @@ nav {
   </div>
 </header>
 
-<!-- ARTICLE -->
 <div class="article-wrap">
   <article class="article-body">
 
-    <p class="article-lede">They told us Switzerland would be expensive, efficient and beautiful. Two out of three turned out to be understatements. The third — the cost — was manageable once we stopped fighting it and just leaned in. Zürich is not a city that apologises for itself, and honestly, why should it?</p>
+    <p class="article-intro">To be fair, everyone told us that Switzerland was expensive, especially Zurich. It did shake us up at first, but after a few days you just fall into some sort of fiscal Buddhist trance where the acceptance of your diminishing finances simply focuses your decision making. One of our defining credos is, quality over quantity, and the Swiss excel in the former.</p>
 
     <div class="day-header">
       <span class="day-pill">Day 1</span>
-      <div class="day-title">14th January — <em>Arrival</em></div>
+      <div class="day-title">Zürich</div>
     </div>
 
-    <p>We landed at Zürich Airport at 8am and the first order of business was finding somewhere warm to change clothes. It was 1°C outside. Switzerland doesn't ease you in gently.</p>
+    <p>There is nothing more exhilarating than landing at your first port of call marking the commencement of a long awaited holiday.</p>
 
-    <p>There was a brief comedy of errors involving a bus to the wrong terminal and some optimistic guesswork about which train platform to use, but we eventually sorted ourselves out and — using our <a href="https://www.eurail.com/en" target="_blank">Eurail Pass</a> for the first time — arrived at our accommodation, <a href="https://hotel-altstadt.ch/en/" target="_blank">The Altstadt Hotel</a>, around midday. Thankfully our room was ready and the concierge let us check in early. Small victory, big relief.</p>
+    <p>For us that excitement was preceded by glimpses of the Swiss Alps as our Singapore Airlines flight banked into Zurich airport. As the sun rose the light tickled the ridges of the Alps as low clouds nestled the lands below.</p>
+
+    <p>After 13 hours in their very comfortably Premium Economy seats we were infused with that worrisome combination of excitement and trepidation of what the next three months would bring.</p>
+
+    <p>As was to be expected of Singapore Airlines, we arrived at Zurich airport on time. When we boarded in Singapore it was 32c and we were decked out in our equatorial clothes. As soon as we hit the concourse, and noticed the sign saying it was 1c, we did the superhero thing where you pop into the loos and immediately get changed into warmer clothes.</p>
+
+    <p>We loaded our Holafly eSims and after a bit of confusion regarding the bus to the other terminal and the train, caused no doubt by our flight-addled brains, we worked out which train to catch, and, using our <a href="https://www.eurail.com/en" target="_blank">Eurail Pass</a> for the first time, we arrived at our accommodation, <a href="https://hotel-altstadt.ch/en/" target="_blank">The Altstadt Hotel</a> at about midday. Fortunately our room was ready and the concierge was happy to let us check in early. Hooray to them!</p>
 
     <div class="hint-box">
       <div class="hint-icon">💡</div>
       <div class="hint-content">
-        <div class="hint-label">Gripster Hint</div>
-        <p>Switzerland is not part of the European Union, which means their power points are different from everyone else's. There was no USB adapter anywhere in the room — we had to borrow one from the front desk. The staff were entirely unsurprised. If you're staying for any length of time, buy a Swiss adapter before you arrive.</p>
+        <div class="hint-label">Hint 1</div>
+        <p>Once we were in our room it was time to discover one of the true peculiarities of the Swiss. As they are not a part of the European Union, they don't have the same power points as everyone else. So when it came to charging our devices, there was no USB adapter anywhere so we had to borrow one from the desk. The staff were used to it. If staying in Switzerland for a long period of time, you'll need to buy one.</p>
       </div>
     </div>
 
-    <!-- Image pair: red hat portrait + Limmat river daytime -->
     <div class="image-pair">
       <figure class="post-image">
-        <img src="Zurich1.JPEG" alt="On the bridge over the Limmat, Altstadt behind, St Peter's church tower visible">
-        <figcaption>First afternoon wander — the Altstadt from the Münsterbrücke bridge</figcaption>
+        <img src="Zurich1.JPEG" alt="Sandra on the Munsterbrucke on our first day in Zurich">
+        <figcaption>Sandra on the Münsterbrücke on our first day in Zurich.</figcaption>
       </figure>
       <figure class="post-image">
-        <img src="Zurich3.jpg" alt="The Limmat river with stone bridge, covered boats and Grossmünster tower, Zürich">
-        <figcaption>The Limmat in January — quiet, cold, and completely beautiful</figcaption>
+        <img src="Zurich3.jpg" alt="Looking back towards the Munsterbrucke on a cold but brilliant day">
+        <figcaption>Looking back towards the Münsterbrücke on a cold but brilliant day.</figcaption>
       </figure>
     </div>
 
-    <p>Once that was sorted we wandered the old town — the <em>Altstadt</em> — and found lunch at a nice little bakery. Soup, bread and coffee for 24 CHF. Not too bad for one of the most expensive cities on earth.</p>
+    <p>Once that was sorted we wandered around the old town 'Altstadt' and sourced some lunch from a nice little bakery and had soup, bread and coffee for 24 CHF, not too bad for one of the most expensive cities on earth.</p>
 
-    <p>With the cost of everything in mind we continued wandering and, on this clear and very cold afternoon, bought a few groceries for breakfast and a bottle of relatively inexpensive whisky — from Aldi. You find ways.</p>
+    <p>With the cost of everything in Switzerland in mind, on this clear day we continued wandering around and bought a few groceries for breakfast, and a bottle of relatively cheap whisky, from Aldi. We scoured the Special Buys bins picking up a pair of merino longjohns for a song.</p>
 
-    <p>After that exertion we rested until dinner at the old established Swiss restaurant <a href="https://www.zeughauskeller.ch/home" target="_blank">Zeughauskeller</a>. It had exactly the clichéd mediaeval-hall ambience you'd expect — vaulted ceilings, long wooden tables, waitstaff who have seen everything — and the schnitzel wasn't bad. But it wasn't worth 100 CHF ($170 AUD). The beer, however, was excellent.</p>
+    <p>After that exertion, we rested in our room until dinner at an old established Swiss restaurant called <a href="https://www.zeughauskeller.ch/home" target="_blank">Zeughauskeller</a>. It had that clichéd ambience you would expect until you realise that it's not a cliché, if it was in suburban Sydney, it would be a cliché, this was the real deal. To top it off the veal snitty wasn't too bad, wafer thin mind you, and the rosti and sauerkraut were great, but was it worth 100 CHF ($170 AUD)? That's the great Swiss conundrum. The beers however were great.</p>
 
-    <!-- Image pair: Zeughauskeller interior + schnitzel -->
-    <div class="image-pair">
-      <figure class="post-image">
-        <img src="Zeughauskeller2.JPEG" alt="Inside Zeughauskeller restaurant, warm lighting, wooden beams, arched windows, wine glass on table">
-        <figcaption>Zeughauskeller — the atmosphere is genuinely excellent. The bill, less so.</figcaption>
-      </figure>
-      <figure class="post-image">
-        <img src="Zeughauskeller1.JPEG" alt="Schnitzel with rösti and cranberry sauce at Zeughauskeller, Zürich">
-        <figcaption>The schnitzel. Enormous. 100 CHF. The rösti beside it was the best thing on the table.</figcaption>
-      </figure>
-    </div>
+    <figure class="post-image">
+      <img src="Zeughauskeller1.JPEG" alt="The veal schnitzel at Zeughauskeller">
+      <figcaption>The veal schnitzel at Zeughauskeller may have been large, but is it worth it?</figcaption>
+    </figure>
 
     <div class="day-header">
       <span class="day-pill">Day 2</span>
-      <div class="day-title">15th January — <em>The museums</em></div>
+      <div class="day-title">Zürich</div>
     </div>
 
-    <p>After Aldi Bircher Muesli for breakfast — a decision we stand by — we headed to the <a href="https://www.kunsthaus.ch/en/" target="_blank">Kunsthaus Art Museum</a>. It turned out to be one of the most rewarding mornings of the entire trip.</p>
+    <p>After our Aldi Bircher Muesli for breakfast we headed off to the <a href="https://www.kunsthaus.ch/en/" target="_blank">Kunsthaus Art Museum</a>, a most rewarding excursion. The museum had loads of works by masters old and new, including an interesting exhibition of the collection of <a href="https://www.kunsthaus.ch/en/sammlung/private-sammlungen/emil-buehrle/" target="_blank">Emil Bührle</a>.</p>
 
-    <p>The collection spans old masters and contemporary work, but what stopped us cold was the <a href="https://www.kunsthaus.ch/en/sammlung/private-sammlungen/emil-buehrle/" target="_blank">Emil Bührle collection</a>. Bührle was a Swiss arms manufacturer whose wealth was built partly on selling weapons to both the Nazis and the Allies, and a significant portion of his art collection was acquired from Jewish families who were forced to sell to fund their escape from Nazi persecution. The Kunsthaus made the decision to show the collection alongside the full context of its provenance — with surveys you could fill in along the way, contributing to the ongoing conversation about whether it should be shown at all. Confronting, necessary, and exactly the kind of thing a good museum should be doing.</p>
+    <p>Bührle was a Swiss arms manufacturer and a large part of his collection was gained through Jewish people selling them to finance their escape from the Nazis. Bührle sold weapons to both the Nazis and the allies and used his wealth to buy a place in Swiss high society.</p>
 
-    <!-- Kunsthaus black and white circular window shot -->
+    <p>At the gallery a vote was taken on whether the collection should be shown due to the dubious provenance of some of the artworks. There were surveys you could fill out along the way to assist with the ongoing conversation surrounding the exhibition.</p>
+
     <figure class="post-image">
-      <img src="IMG_7588.JPEG" alt="View through circular concrete window of Kunsthaus Zürich courtyard, lone figure walking below, black and white">
-      <figcaption>Looking down into the Kunsthaus courtyard — one of those accidental shots that turns out to be the best of the day</figcaption>
+      <img src="IMG_7588.JPEG" alt="Part of Mark's Street Photography series. On the line, in the circle.">
+      <figcaption>Part of Mark's Street Photography series. 'On the line, in the circle.'</figcaption>
     </figure>
 
-    <p>By way of thanking the staff at The Altstadt Hotel for the adapter loan, we had lunch there. Two cheese and tomato toasties: 19 CHF ($33 AUD). Yes, $33 Australian dollars. For toasties. We tipped anyway.</p>
+    <p>As a way of thanking the staff at The Altstadt Hotel, for lending us the adapter, we had lunch there. It cost 19 CHF ($33) for two cheese and tomato toasties. Yep, $33 AUD.</p>
 
-    <p>Fuelled by our expensive snack we headed to the <a href="https://www.landesmuseum.ch/en" target="_blank">Swiss National Museum</a>, housed in a castle-like building that turns out to be the perfect container for what's inside. There's a huge amount of content — the history of Switzerland, its political system, its geology — and some extraordinary intact grand rooms from a noble family's house, carved entirely from wood. Whether they used a Swiss army knife, we couldn't confirm.</p>
+    <p>Fueled with our expensive snack/lunch we went to the <a href="https://www.landesmuseum.ch/en" target="_blank">Swiss National Museum</a> which is housed in an old medieval building. There was a huge amount of content about the history of Switzerland, its political system, geology and some fabulous grand rooms from a noble family's house, all carved out of wood. Not sure if they used a Swiss army knife or not.</p>
 
-    <!-- Museum exterior + carved interior -->
-    <div class="image-pair">
-      <figure class="post-image">
-        <img src="Museum1.JPEG" alt="Swiss National Museum entrance tower with Kolonial exhibition banner, Zürich">
-        <figcaption>The Swiss National Museum — that "Kolonial" banner is doing a lot of honest work</figcaption>
-      </figure>
-      <figure class="post-image">
-        <img src="Museum2.JPEG" alt="Richly carved wooden panelled room with ornate green tiled stove at the Swiss National Museum">
-        <figcaption>One of the transplanted noble family rooms — the tiled stove alone is worth the visit</figcaption>
-      </figure>
-    </div>
+    <p>At the time of our visit there was also an interesting exhibition about Swiss colonialism, and although they were politically neutral, they still exploited Africa and Asia like most of the other Europeans. Hi Nestlé.</p>
 
-    <p>There was also a significant exhibition about Swiss colonialism — a reminder that political neutrality and economic exploitation are not mutually exclusive. The Swiss were in Africa and Asia like everyone else. Hello, Nestlé.</p>
+    <figure class="post-image">
+      <img src="Museum2.JPEG" alt="Period room at the Swiss National Museum">
+      <figcaption>The Swiss National Museum in Zurich houses a number of permanent collections including these period rooms.</figcaption>
+    </figure>
 
-    <div class="pull-quote">
-      <p>"Switzerland doesn't try to sell itself to you. It just exists, magnificently, and waits for you to notice."</p>
-    </div>
-
-    <p>For dinner we walked to <a href="https://europaallee.ch/en/" target="_blank">Europaallee</a>, a newer, hipper precinct with a variety of options — Asian, Italian, traditional Swiss. We opted for dumplings, rice and soup to share.</p>
+    <p>For dinner we walked to a new hip joint called <a href="https://europaallee.ch/en/" target="_blank">Europaallee</a>. There were lots of choices there including Asian, Italian and the traditional Swiss dishes. We opted for dumplings, rice and soup to share.</p>
 
     <div class="hint-box">
       <div class="hint-icon">💡</div>
       <div class="hint-content">
-        <div class="hint-label">Gripster Hint</div>
-        <p>In Switzerland — or anywhere, really — you know a place is good value when it's full of students. Europaallee was packed with them. Follow the students.</p>
+        <div class="hint-label">Hint 2</div>
+        <p>And students, you know it's cheap to eat somewhere when there are a lot of students and office workers looking for an inexpensive meal.</p>
       </div>
     </div>
 
-    <!-- Europaallee interior -->
     <figure class="post-image">
-      <img src="Europallee.JPEG" alt="Busy Europaallee dining hall in Zürich, full of young people on stepped seating, plants and industrial ceiling">
-      <figcaption>Europaallee on a January evening — warm, buzzing, and noticeably cheaper than everywhere else we'd eaten</figcaption>
+      <img src="Europallee.JPEG" alt="Europaallee dining hall, Zürich">
+      <figcaption>Europaallee is a brilliant place to soak up the casual atmosphere and enjoy an inexpensive meal.</figcaption>
     </figure>
 
-    <h2>Zürich: the <em>verdict</em></h2>
+    <div class="hint-box">
+      <div class="hint-icon">💡</div>
+      <div class="hint-content">
+        <div class="hint-label">Hint 3</div>
+        <p>Eurail works from the airport into Zurich HB but you'll need to buy tickets for the tram system, either online or at the ticket machines. If Switzerland is your only destination, a Swiss Pass is a good idea.</p>
+      </div>
+    </div>
 
-    <p>Two days in Zürich left us with a clear picture of the city: genuinely world-class infrastructure, genuinely world-class museums, and a bill that makes you briefly reconsider your choices. We'd go back. We'd just pack more snacks.</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin:2.5rem 0 1.2rem;letter-spacing:-0.01em;">After two days in Zürich — pros and cons</h2>
 
     <div class="pros-cons">
       <div class="pros">
-        <div class="pc-title">What we loved</div>
+        <div class="pc-title">Pros</div>
         <ul class="pc-list">
-          <li>Trains and trams — effortless</li>
-          <li>The museums — exceptional</li>
+          <li>Trains</li>
+          <li>Trams</li>
+          <li>Museums</li>
           <li>Cleanliness of the city</li>
-          <li>Public toilets — genuinely great</li>
-          <li>Coop supermarkets</li>
-          <li>Very few cars in the centre</li>
+          <li>Great public toilets</li>
+          <li>Coop stores</li>
+          <li>Few cars</li>
           <li>Alcohol not too expensive</li>
         </ul>
       </div>
       <div class="cons">
-        <div class="pc-title">What to know</div>
+        <div class="pc-title">Cons</div>
         <ul class="pc-list">
-          <li>Eating out is expensive</li>
-          <li>A lot of smoking everywhere</li>
-          <li>Locals tend to keep to themselves</li>
-          <li>Different power points — bring an adapter</li>
+          <li>Expensive to eat</li>
+          <li>Lots of smoking</li>
+          <li>The locals are quite reserved.</li>
         </ul>
       </div>
     </div>
@@ -457,7 +421,6 @@ nav {
 
   </article>
 
-  <!-- SIDEBAR -->
   <aside class="article-sidebar">
     <div class="plan-cta">
       <h4>Planning a Swiss trip?</h4>
@@ -469,23 +432,24 @@ nav {
       <div class="trip-fact"><span class="fact-key">When</span><span class="fact-val">January 2025</span></div>
       <div class="trip-fact"><span class="fact-key">Duration</span><span class="fact-val">2 days</span></div>
       <div class="trip-fact"><span class="fact-key">Getting there</span><span class="fact-val">Eurail Pass from airport</span></div>
-      <div class="trip-fact"><span class="fact-key">Stayed at</span><span class="fact-val"><a href="https://hotel-altstadt.ch/en/" target="_blank" style="color:var(--terracotta)">The Altstadt Hotel</a></span></div>
-      <div class="trip-fact"><span class="fact-key">Best meal</span><span class="fact-val">Dumplings at Europaallee</span></div>
+      <div class="trip-fact"><span class="fact-key">Stayed at</span><span class="fact-val"><a href="https://hotel-altstadt.ch/en/" target="_blank">The Altstadt Hotel</a></span></div>
       <div class="trip-fact"><span class="fact-key">Don't miss</span><span class="fact-val">Kunsthaus & Swiss National Museum</span></div>
+      <div class="trip-fact"><span class="fact-key">Best value meal</span><span class="fact-val">Europaallee</span></div>
       <div class="trip-fact"><span class="fact-key">Bring</span><span class="fact-val">Swiss power adapter</span></div>
     </div>
     <div class="sidebar-card">
       <div class="sidebar-card-title">In this post</div>
       <a href="#" class="toc-link">Day 1 — Arrival</a>
-      <a href="#" class="toc-link">Day 2 — The museums</a>
+      <a href="#" class="toc-link">Altstadt wander</a>
       <a href="#" class="toc-link">Zeughauskeller dinner</a>
+      <a href="#" class="toc-link">Day 2 — Kunsthaus</a>
+      <a href="#" class="toc-link">Swiss National Museum</a>
       <a href="#" class="toc-link">Europaallee</a>
-      <a href="#" class="toc-link">The verdict</a>
+      <a href="#" class="toc-link">Pros and cons</a>
     </div>
   </aside>
 </div>
 
-<!-- POST FOOTER -->
 <div class="post-footer-section">
   <div class="post-footer-inner">
     <div class="author-block">
