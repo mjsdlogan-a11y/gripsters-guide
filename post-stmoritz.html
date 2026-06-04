@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St Moritz — On the Road — Gripsters Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--terracotta); text-decoration: none; }
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--dusty); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; }
+.nav-cta:hover { background: #a8501f !important; }
+
+.post-hero {
+  min-height: 88vh; position: relative;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 40%;
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.96) 0%, rgba(26,18,8,0.4) 45%, rgba(26,18,8,0.15) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: 0 5rem 4rem; max-width: 860px;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(245,240,232,0.4); margin-bottom: 1.5rem;
+}
+.breadcrumb a { color: rgba(245,240,232,0.4); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb-sep { opacity: 0.3; }
+.hero-kicker {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.hero-kicker::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--cream); margin-bottom: 1.2rem;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.hero-byline { font-size: 0.85rem; color: rgba(245,240,232,0.5); }
+.hero-byline strong { color: rgba(245,240,232,0.8); font-weight: 500; }
+.hero-tag {
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  background: rgba(201,168,76,0.18); color: var(--gold);
+  padding: 0.22rem 0.7rem; border-radius: 2rem; border: 1px solid rgba(201,168,76,0.3);
+}
+
+.article-wrap {
+  display: grid; grid-template-columns: 1fr 270px;
+  gap: 4rem; max-width: 1080px; margin: 0 auto; padding: 5rem 3rem;
+}
+.article-body { min-width: 0; }
+
+.article-intro {
+  font-family: 'Lora', serif; font-size: 1.15rem; line-height: 1.85;
+  color: var(--ink); font-weight: 400; margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem; border-bottom: 2px solid var(--border);
+  font-style: italic;
+}
+
+.article-body p {
+  font-family: 'Lora', serif; font-size: 1.02rem; line-height: 1.88;
+  color: #2d2318; margin-bottom: 1.6rem;
+}
+
+.article-body a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 3px; }
+.article-body a:hover { color: #a8501f; }
+
+.day-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 3rem 0 1.4rem;
+}
+.day-pill {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--terracotta); color: white;
+  padding: 0.3rem 0.85rem; border-radius: 2rem; flex-shrink: 0;
+}
+.day-title {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+
+.hint-box {
+  margin: 2rem 0; padding: 1.2rem 1.5rem;
+  background: var(--light-sage); border-radius: 0.85rem;
+  border: 1px solid rgba(122,158,126,0.25);
+  display: flex; gap: 0.8rem; align-items: flex-start;
+}
+.hint-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.15rem; }
+.hint-content { flex: 1; }
+.hint-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.35rem;
+}
+.hint-content p {
+  font-family: 'Lora', serif; font-size: 0.92rem; line-height: 1.65;
+  color: var(--ink); margin-bottom: 0 !important;
+}
+
+.post-image { margin: 2.2rem 0; border-radius: 1rem; overflow: hidden; }
+.post-image img { width: 100%; display: block; max-height: 600px; object-fit: cover; }
+.post-image figcaption {
+  padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--dusty);
+  font-style: italic; background: white;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 1rem 1rem; line-height: 1.5;
+}
+.image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 2.2rem 0; }
+.image-pair .post-image { margin: 0; }
+.image-pair .post-image img { max-height: 320px; }
+
+.article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
+.article-tag {
+  font-size: 0.77rem; font-weight: 500;
+  background: var(--warm); color: var(--dusty);
+  padding: 0.28rem 0.75rem; border-radius: 2rem; border: 1px solid var(--border);
+}
+
+.article-sidebar { position: sticky; top: 5.5rem; height: fit-content; }
+.sidebar-card {
+  background: white; border-radius: 1.2rem; padding: 1.4rem;
+  border: 1px solid var(--border); margin-bottom: 1.1rem;
+}
+.sidebar-card-title {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dusty); margin-bottom: 0.9rem;
+}
+.trip-fact { display: flex; justify-content: space-between; padding: 0.42rem 0; border-bottom: 1px solid var(--border); font-size: 0.84rem; }
+.trip-fact:last-child { border-bottom: none; }
+.fact-key { color: var(--dusty); }
+.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 60%; }
+.fact-val a { color: var(--terracotta); text-decoration: none; }
+.fact-val a:hover { text-decoration: underline; }
+
+.plan-cta { background: var(--terracotta); border-radius: 1.2rem; padding: 1.4rem; text-align: center; margin-bottom: 1.1rem; }
+.plan-cta h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-weight: 700; margin-bottom: 0.35rem; }
+.plan-cta p { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 0.9rem; line-height: 1.5; }
+.btn-plan {
+  display: block; background: white; color: var(--terracotta);
+  padding: 0.65rem 1rem; border-radius: 2rem; text-decoration: none;
+  font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+}
+.btn-plan:hover { background: var(--cream); }
+
+.toc-link {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.83rem; color: var(--dusty); padding: 0.32rem 0;
+  text-decoration: none; border-bottom: 1px solid rgba(140,123,107,0.1); transition: color 0.2s;
+}
+.toc-link:last-child { border-bottom: none; }
+.toc-link:hover { color: var(--terracotta); }
+.toc-link::before { content: '·'; color: var(--terracotta); font-weight: 700; }
+
+.post-footer-section { background: var(--ink); padding: 4rem 5rem; margin-top: 2rem; }
+.post-footer-inner { max-width: 820px; margin: 0 auto; }
+.author-block {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(245,240,232,0.1); margin-bottom: 3rem;
+}
+.author-avatar {
+  width: 4.5rem; height: 4.5rem; border-radius: 50%; flex-shrink: 0;
+  background: rgba(201,168,76,0.15); border: 2px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+}
+.author-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.25rem; }
+.author-title { font-size: 0.76rem; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.author-info p { font-size: 0.86rem; color: rgba(245,240,232,0.42); line-height: 1.6; font-family: 'Lora', serif; font-style: italic; }
+.more-stories h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 1.4rem; }
+.more-link {
+  display: flex; align-items: center; gap: 1rem; padding: 1rem;
+  background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.08);
+  border-radius: 0.85rem; text-decoration: none; color: var(--cream);
+  transition: background 0.2s; margin-bottom: 0.7rem;
+}
+.more-link:hover { background: rgba(245,240,232,0.08); }
+.more-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+.more-link-text strong { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 0.1rem; }
+.more-link-text span { font-size: 0.76rem; color: rgba(245,240,232,0.38); }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 1.5rem 3rem; }
+  .article-wrap { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+  .article-sidebar { position: static; }
+  .image-pair { grid-template-columns: 1fr; }
+  .post-footer-section { padding: 3rem 1.5rem; }
+  .author-block { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Gripsters<span>Guide</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Plan a Trip</a></li>
+    <li><a href="on-the-road.html" class="active">On the Road</a></li>
+    <li><a href="index.html">How It Works</a></li>
+    <li><a href="index.html" class="nav-cta">Start Planning</a></li>
+  </ul>
+</nav>
+
+<header class="post-hero">
+  <img class="hero-img" src="Mor2.jpg" alt="Despite our misgivings, St Moritz was stunning.">
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="on-the-road.html">On the Road</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Switzerland</span>
+      <span class="breadcrumb-sep">/</span>
+      <span>St Moritz</span>
+    </div>
+    <div class="hero-kicker">Switzerland · January 2025 · 1 day</div>
+    <h1 class="hero"><em>St Moritz</em></h1>
+    <div class="hero-meta">
+      <div class="hero-byline">By <strong>The Gripsters</strong> · January 2025 · 6 min read</div>
+      <span class="hero-tag">⛷️ Alpine</span>
+      <span class="hero-tag">🚂 Glacier Express</span>
+      <span class="hero-tag">❄️ Winter</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article class="article-body">
+
+    <p class="article-intro">We have ski resorts here in Australia, and sure they're nothing like those in Europe, and certainly none are like St Moritz. Interestingly it was a wager in 1864 by Johannes Badrutt, owner of the Kulm Hotel, in St Moritz that sparked off the winter skiing industry. Before then St Moritz was a lovely summer spa town and everything closed down in winter. He bet some English guests that he would cover their travel and accommodation if they returned in winter and didn't enjoy it. They came, stayed far too long, and sparked the international winter resort industry.</p>
+
+    <div class="day-header">
+      <span class="day-pill">Day 3</span>
+      <div class="day-title">St Moritz</div>
+    </div>
+
+    <p>We woke bright and early and using our Eurail pass we headed to classy St Moritz, just three hours away. Why would we go there when we don't ski? Well, it's the launching place for the Glacier Express train from there to Zermatt and the mighty Matterhorn.</p>
+
+    <p>If it wasn't for the Glacier Express, we probably wouldn't have bothered with St Moritz as our interests don't lie in that scene, however the trip there was glorious. Lovely scenery, of course - it seems that there are no ugly places in Switzerland. The only problem with the trip is that Mark kept complaining about a sharp pain in his hip area. Turns out his wallet could sense the abuse it was about to be dealt and it was fighting to escape.</p>
+
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Mor7.jpg" alt="The view from Hotel Languard was superb.">
+        <figcaption>The view from Hotel Languard was superb.</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Mor4.jpg" alt="Even at night St Moritz looks brilliant from our hotel room.">
+        <figcaption>Even at night St Moritz looks brilliant from our hotel room.</figcaption>
+      </figure>
+    </div>
+
+    <p>Coming from the central west of NSW where it regularly snows, we thought that we had that 'walking on icy surfaces' thing all sorted. Alas, there's central west snow, which is a short-lived novelty, and there's St Moritz snow, which is more treacherous, and most likely, more expensive.</p>
+
+    <p>The walk from where the bus dropped us off up to our bed for the night at <a href="https://www.languard-stmoritz.ch/" target="_blank">Hotel Languard</a> was a challenge with our two wheely bags. The hotel itself was very charming and the staff were helpful. The room was enormous and it had a cracking view of the frozen lake and the sky piercing mountains.</p>
+
+    <p>We had more soup for lunch in a nearby cafe, which is all we were willing to pay at this ritzy resort for the beautiful and famous. The cakes were reasonably priced so we had a jam donut and a chocolate profiterole. Both were delicious.</p>
+
+    <figure class="post-image">
+      <img src="Mor6.jpg" alt="The flat frozen lake was a big attraction for those of us who care little for the perils of the mountains.">
+      <figcaption>The flat frozen lake was a big attraction for those of us who care little for the perils of the mountains.</figcaption>
+    </figure>
+
+    <p>After lunch we went for an unnerving stroll across the frozen lake before ascending to the first level of the funicular railway. It gave us a fantastic view of the town and an eye-level view of the incoming flights of the wealthy.</p>
+
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Mor1.jpg" alt="St Moritz's architecture was a mix of old and new.">
+        <figcaption>St Moritz's architecture was a mix of old and new.</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Mor5.jpg" alt="From the first level of the ski lift you can catch a glimpse of what joys lay beyond.">
+        <figcaption>From the first level of the ski lift you can catch a glimpse of what joys lay beyond.</figcaption>
+      </figure>
+    </div>
+
+    <p>At the look-out there is one of those Instagram ready frames that you can use to show off. As we stood there like the prize dorks that we are, another tourist offered to take our pic for us. We reciprocated of course, it's what you do.</p>
+
+    <figure class="post-image">
+      <img src="Mor3.jpg" alt="Thankfully we met a lone traveller who offered to take this dorky photo, in exchange for one of herself.">
+      <figcaption>Thankfully we met a lone traveller who offered to take this dorky photo, in exchange for one of herself.</figcaption>
+    </figure>
+
+    <p>You hear the term 'Eat like a local' a lot on travel blogs; here in Switzerland we soon discovered it means to buy ready-made meals from the nearest Coop. We grabbed a pasta salad and a slice of pizza from a takeaway shop near our hotel. We had a bottle of Coop wine with our meal and topped it off with a free-poured nip of whisky.</p>
+
+    <p>A bath followed and seriously, who needs to be a millionaire?</p>
+
+    <div class="article-tags">
+      <span class="article-tag">St Moritz</span>
+      <span class="article-tag">Switzerland</span>
+      <span class="article-tag">Glacier Express</span>
+      <span class="article-tag">Alpine</span>
+      <span class="article-tag">Winter travel</span>
+      <span class="article-tag">Independent travel</span>
+      <span class="article-tag">Europe</span>
+    </div>
+
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="plan-cta">
+      <h4>Planning a Swiss trip?</h4>
+      <p>Let our AI planner build an itinerary around your pace and budget.</p>
+      <a href="index.html" class="btn-plan">Plan my Switzerland trip →</a>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">St Moritz at a glance</div>
+      <div class="trip-fact"><span class="fact-key">When</span><span class="fact-val">January 2025</span></div>
+      <div class="trip-fact"><span class="fact-key">Duration</span><span class="fact-val">1 day & night</span></div>
+      <div class="trip-fact"><span class="fact-key">Getting there</span><span class="fact-val">Eurail Pass from Zürich, 3 hrs</span></div>
+      <div class="trip-fact"><span class="fact-key">Stayed at</span><span class="fact-val"><a href="https://www.languard-stmoritz.ch/" target="_blank">Hotel Languard</a></span></div>
+      <div class="trip-fact"><span class="fact-key">Don't miss</span><span class="fact-val">Walk on the frozen lake</span></div>
+      <div class="trip-fact"><span class="fact-key">Best value meal</span><span class="fact-val">Coop ready-made</span></div>
+      <div class="trip-fact"><span class="fact-key">Next stop</span><span class="fact-val">Glacier Express to Zermatt</span></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">In this post</div>
+      <a href="#" class="toc-link">The wager that started it all</a>
+      <a href="#" class="toc-link">Arriving at Hotel Languard</a>
+      <a href="#" class="toc-link">Lunch & the frozen lake</a>
+      <a href="#" class="toc-link">The funicular lookout</a>
+      <a href="#" class="toc-link">Eating like a local</a>
+    </div>
+  </aside>
+</div>
+
+<div class="post-footer-section">
+  <div class="post-footer-inner">
+    <div class="author-block">
+      <div class="author-avatar">✈️</div>
+      <div class="author-info">
+        <h4>The Gripsters</h4>
+        <div class="author-title">On the Road · Gripsters Guide</div>
+        <p>Independent travellers, occasional Aldi shoppers, firm believers that the best meal of any trip is usually found by following the students. We write honestly about where we go, what it costs, and what's actually worth your time.</p>
+      </div>
+    </div>
+    <div class="more-stories">
+      <h3>More from On the Road</h3>
+      <a href="post-zurich.html" class="more-link">
+        <div class="more-link-icon">🏛️</div>
+        <div class="more-link-text">
+          <strong>Previous: Zürich</strong>
+          <span>Expensive, efficient & magnificent</span>
+        </div>
+      </a>
+      <a href="on-the-road.html" class="more-link">
+        <div class="more-link-icon">🗺️</div>
+        <div class="more-link-text">
+          <strong>All travel stories</strong>
+          <span>Back to the On the Road archive</span>
+        </div>
+      </a>
+      <a href="index.html" class="more-link">
+        <div class="more-link-icon">🤖</div>
+        <div class="more-link-text">
+          <strong>Inspired? Plan your own Swiss trip</strong>
+          <span>Use our AI planner to build an itinerary around you</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
