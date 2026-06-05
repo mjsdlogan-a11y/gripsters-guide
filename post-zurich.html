@@ -168,6 +168,21 @@ nav {
 .pros .pc-list li::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
 .cons .pc-list li::before { content: '✗'; color: var(--terracotta); font-weight: 700; flex-shrink: 0; }
 
+.post-image.street-photo { border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.street-photo-wrap { position: relative; }
+.street-photo-wrap img { display: block; width: 100%; max-height: 600px; object-fit: cover; }
+.photo-credit {
+  position: absolute; bottom: 0.8rem; left: 0.8rem;
+  background: rgba(26,18,8,0.82); color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+  padding: 0.35rem 0.75rem; border-radius: 2rem;
+  text-decoration: none; letter-spacing: 0.03em;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.2s, transform 0.2s;
+}
+.photo-credit:hover { background: var(--terracotta); transform: translateY(-1px); }
+
 .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
 .article-tag {
   font-size: 0.77rem; font-weight: 500;
@@ -346,8 +361,11 @@ nav {
 
     <p>At the gallery a vote was taken on whether the collection should be shown due to the dubious provenance of some of the artworks. There were surveys you could fill out along the way to assist with the ongoing conversation surrounding the exhibition.</p>
 
-    <figure class="post-image">
-      <img src="7z.jpg" alt="Part of Mark's Street Photography series. On the line, in the circle.">
+    <figure class="post-image street-photo">
+      <div class="street-photo-wrap">
+        <img src="7z.jpg" alt="Part of Mark's Street Photography series. On the line, in the circle.">
+        <a href="https://www.flickr.com/photos/othdesign/54548159971/in/dateposted-public/" target="_blank" rel="noopener" class="photo-credit">📷 Photo by Mark Logan</a>
+      </div>
       <figcaption>Part of Mark's Street Photography series. 'On the line, in the circle.'</figcaption>
     </figure>
 
