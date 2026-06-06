@@ -633,6 +633,80 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
 /* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
+/* ── MOBILE NAV ── */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--ink); border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 190; background: var(--cream);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 0;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a, .mobile-nav button {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--ink); text-decoration: none;
+  background: none; border: none; cursor: pointer;
+  padding: 0.7rem 2rem; width: 100%; text-align: center;
+  transition: color 0.2s;
+  letter-spacing: -0.01em;
+}
+.mobile-nav a:hover, .mobile-nav button:hover { color: var(--terracotta); }
+.mobile-nav .mobile-cta {
+  margin-top: 1.5rem;
+  background: var(--terracotta) !important; color: white !important;
+  border-radius: 3rem; font-size: 1.2rem; width: auto; padding: 0.9rem 2.5rem;
+}
+.mobile-nav-close {
+  position: absolute; top: 1.2rem; right: 1.5rem;
+  font-size: 1.8rem; background: none; border: none; cursor: pointer;
+  color: var(--dusty); line-height: 1;
+}
+
+/* ── ON THE ROAD SECTION (landing page) ── */
+.otr-section { padding: 6rem 5rem; background: var(--ink); }
+.otr-section .section-tag { color: var(--gold); }
+.otr-section .section-tag::before { background: var(--gold); }
+.otr-section h2 { color: var(--cream); margin-bottom: 0.5rem; }
+.otr-intro { font-size: 1rem; color: rgba(245,240,232,0.5); max-width: 50ch; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.6; }
+.otr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+.otr-card {
+  background: rgba(245,240,232,0.05); border: 1px solid rgba(245,240,232,0.1);
+  border-radius: 1.1rem; overflow: hidden; text-decoration: none; color: var(--cream);
+  transition: background 0.2s, transform 0.2s;
+  display: flex; flex-direction: column;
+}
+.otr-card:hover { background: rgba(245,240,232,0.09); transform: translateY(-3px); }
+.otr-card-img { height: 180px; overflow: hidden; }
+.otr-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.otr-card:hover .otr-card-img img { transform: scale(1.04); }
+.otr-card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+.otr-card-region { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+.otr-card-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.5rem; }
+.otr-card-title em { font-style: italic; color: var(--gold); }
+.otr-card-excerpt { font-size: 0.82rem; color: rgba(245,240,232,0.45); line-height: 1.55; flex: 1; margin-bottom: 0.8rem; }
+.otr-card-footer { font-size: 0.75rem; color: rgba(245,240,232,0.35); display: flex; justify-content: space-between; }
+.otr-card-read { color: var(--gold); font-weight: 500; }
+.otr-all-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; font-weight: 500; color: var(--gold);
+  text-decoration: none; transition: gap 0.2s;
+  border: 1px solid rgba(201,168,76,0.35); padding: 0.7rem 1.5rem; border-radius: 2rem;
+}
+.otr-all-link:hover { gap: 0.8rem; border-color: var(--gold); }
+
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; }
   .hero-right { display: none; }
@@ -640,6 +714,7 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
   .landing-section { padding: 4rem 2rem; }
   .top-nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
   .for-you-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; padding: 2rem; }
   .ob-shell { grid-template-columns: 1fr; }
@@ -649,6 +724,8 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
   .input-row { grid-template-columns: 1fr; }
   .planner-layout { grid-template-columns: 1fr; }
   .trips-panel { position: static; }
+  .otr-section { padding: 4rem 1.5rem; }
+  .otr-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -664,7 +741,20 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
     <li><a href="#" onclick="startOnboarding(); return false;">Create Profile</a></li>
     <li><a href="#" class="nav-cta" onclick="goToPlanner(); return false;">Plan a Trip</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
+  <a href="#" onclick="toggleMobileNav(); showLandingSection('how'); return false;">How It Works</a>
+  <a href="#" onclick="toggleMobileNav(); showLandingSection('features'); return false;">For You</a>
+  <a href="on-the-road.html">On the Road</a>
+  <a href="#" onclick="toggleMobileNav(); startOnboarding(); return false;">Create Profile</a>
+  <button class="mobile-cta" onclick="toggleMobileNav(); goToPlanner();">Plan a Trip</button>
+</div>
 
 <!-- ═══════════════════════════════════════════════
      VIEW 1: LANDING PAGE
@@ -749,6 +839,43 @@ input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
       <div class="testimonial reveal"><div class="stars">★★★★★</div><blockquote>"The walking distance feature alone is worth it. I have a dodgy knee and knowing I won't be surprised by a 2km uphill walk to a restaurant changes everything."</blockquote><cite>— David, 61 · Melbourne</cite></div>
       <div class="testimonial reveal"><div class="stars">★★★★★</div><blockquote>"We used it to plan six weeks across Southeast Asia. We tweaked the itinerary about twenty times before we left and it just adapted each time. Brilliant."</blockquote><cite>— Robert & Susan, 58 & 56 · Toronto</cite></div>
     </div>
+  </section>
+
+  <!-- ON THE ROAD SECTION -->
+  <section class="otr-section" id="landing-otr">
+    <div class="section-tag">From the Gripsters</div>
+    <h2>On the Road</h2>
+    <p class="otr-intro">Real trips, written honestly. No sponsored content, no package tours — just where we went, what it cost, and what's actually worth your time.</p>
+    <div class="otr-grid">
+      <a href="post-glacierexpress.html" class="otr-card">
+        <div class="otr-card-img"><img src="Gla8.jpg" alt="The Glacier Express winding through the Alps"></div>
+        <div class="otr-card-body">
+          <div class="otr-card-region">Switzerland — St Moritz to Täsch</div>
+          <div class="otr-card-title">The <em>Glacier Express</em></div>
+          <div class="otr-card-excerpt">Eight hours, 291 bridges, 91 tunnels, and views that made every superlative feel like an understatement.</div>
+          <div class="otr-card-footer"><span>January 2025 · 7 min</span><span class="otr-card-read">Read →</span></div>
+        </div>
+      </a>
+      <a href="post-stmoritz.html" class="otr-card">
+        <div class="otr-card-img"><img src="Mor2.jpg" alt="St Moritz valley and frozen lake"></div>
+        <div class="otr-card-body">
+          <div class="otr-card-region">Switzerland — St Moritz</div>
+          <div class="otr-card-title"><em>St Moritz:</em> we didn't ski, we didn't care</div>
+          <div class="otr-card-excerpt">A day in the world's most famous ski resort — frozen lakes, funicular lookouts, and Coop wine in a very large hotel room.</div>
+          <div class="otr-card-footer"><span>January 2025 · 6 min</span><span class="otr-card-read">Read →</span></div>
+        </div>
+      </a>
+      <a href="post-zurich.html" class="otr-card">
+        <div class="otr-card-img"><img src="3z.jpg" alt="Zürich at night"></div>
+        <div class="otr-card-body">
+          <div class="otr-card-region">Switzerland — Zürich</div>
+          <div class="otr-card-title"><em>Zürich:</em> expensive, efficient & magnificent</div>
+          <div class="otr-card-excerpt">Two days in one of the world's most expensive cities — great museums, great trains, and a schnitzel that cost $170 AUD.</div>
+          <div class="otr-card-footer"><span>January 2025 · 8 min</span><span class="otr-card-read">Read →</span></div>
+        </div>
+      </a>
+    </div>
+    <a href="on-the-road.html" class="otr-all-link">All stories from On the Road →</a>
   </section>
 
   <!-- CTA BAND -->
@@ -1162,6 +1289,14 @@ function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0, 0);
+}
+
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const btn = document.getElementById('hamburger');
+  nav.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
 }
 
 function showLandingSection(id) {
