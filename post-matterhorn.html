@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Matterhorn — On the Road — Gripsters Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --cream: #f5f0e8;
+  --warm: #f0e6d0;
+  --terracotta: #c4622d;
+  --sage: #7a9e7e;
+  --gold: #c9a84c;
+  --dusty: #8c7b6b;
+  --light-sage: #e8f0e9;
+  --border: rgba(140,123,107,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(245,240,232,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(196,98,45,0.12);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--terracotta); text-decoration: none; }
+.logo span { color: var(--ink); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--dusty); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { background: var(--terracotta) !important; color: white !important; padding: 0.55rem 1.3rem; border-radius: 2rem; }
+.nav-cta:hover { background: #a8501f !important; }
+
+.post-hero {
+  min-height: 88vh; position: relative;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 40%;
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.96) 0%, rgba(26,18,8,0.4) 45%, rgba(26,18,8,0.15) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: 0 5rem 4rem; max-width: 860px;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(245,240,232,0.4); margin-bottom: 1.5rem;
+}
+.breadcrumb a { color: rgba(245,240,232,0.4); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb-sep { opacity: 0.3; }
+.hero-kicker {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.hero-kicker::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--cream); margin-bottom: 1.2rem;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.hero-byline { font-size: 0.85rem; color: rgba(245,240,232,0.5); }
+.hero-byline strong { color: rgba(245,240,232,0.8); font-weight: 500; }
+.hero-tag {
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  background: rgba(201,168,76,0.18); color: var(--gold);
+  padding: 0.22rem 0.7rem; border-radius: 2rem; border: 1px solid rgba(201,168,76,0.3);
+}
+
+.article-wrap {
+  display: grid; grid-template-columns: 1fr 270px;
+  gap: 4rem; max-width: 1080px; margin: 0 auto; padding: 5rem 3rem;
+}
+.article-body { min-width: 0; }
+
+.article-intro {
+  font-family: 'Lora', serif; font-size: 1.15rem; line-height: 1.85;
+  color: var(--ink); font-weight: 400; margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem; border-bottom: 2px solid var(--border);
+  font-style: italic;
+}
+
+.article-body p {
+  font-family: 'Lora', serif; font-size: 1.02rem; line-height: 1.88;
+  color: #2d2318; margin-bottom: 1.6rem;
+}
+.article-body a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 3px; }
+.article-body a:hover { color: #a8501f; }
+
+.day-header {
+  display: flex; align-items: center; gap: 1rem; margin: 3rem 0 1.4rem;
+}
+.day-pill {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--terracotta); color: white;
+  padding: 0.3rem 0.85rem; border-radius: 2rem; flex-shrink: 0;
+}
+.day-title {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+
+.hint-box {
+  margin: 2rem 0; padding: 1.2rem 1.5rem;
+  background: var(--light-sage); border-radius: 0.85rem;
+  border: 1px solid rgba(122,158,126,0.25);
+  display: flex; gap: 0.8rem; align-items: flex-start;
+}
+.hint-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.15rem; }
+.hint-content { flex: 1; }
+.hint-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.35rem;
+}
+.hint-content p {
+  font-family: 'Lora', serif; font-size: 0.92rem; line-height: 1.65;
+  color: var(--ink); margin-bottom: 0 !important;
+}
+
+/* Standard images */
+.post-image { margin: 2.2rem 0; border-radius: 1rem; overflow: hidden; }
+.post-image img { width: 100%; display: block; max-height: 600px; object-fit: cover; }
+.post-image figcaption {
+  padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--dusty);
+  font-style: italic; background: white;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 1rem 1rem; line-height: 1.5;
+}
+.image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 2.2rem 0; }
+.image-pair .post-image { margin: 0; }
+.image-pair .post-image img { max-height: 320px; }
+
+/* Mark's street photography style */
+.post-image.street-photo { border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.street-photo-wrap { position: relative; }
+.street-photo-wrap img { display: block; width: 100%; max-height: 600px; object-fit: cover; }
+.photo-credit {
+  position: absolute; bottom: 0.8rem; left: 0.8rem;
+  background: rgba(26,18,8,0.82); color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+  padding: 0.35rem 0.75rem; border-radius: 2rem;
+  text-decoration: none; letter-spacing: 0.03em;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.2s, transform 0.2s;
+}
+.photo-credit:hover { background: var(--terracotta); transform: translateY(-1px); }
+
+.article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 0; }
+.article-tag {
+  font-size: 0.77rem; font-weight: 500;
+  background: var(--warm); color: var(--dusty);
+  padding: 0.28rem 0.75rem; border-radius: 2rem; border: 1px solid var(--border);
+}
+
+.article-sidebar { position: sticky; top: 5.5rem; height: fit-content; }
+.sidebar-card {
+  background: white; border-radius: 1.2rem; padding: 1.4rem;
+  border: 1px solid var(--border); margin-bottom: 1.1rem;
+}
+.sidebar-card-title {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dusty); margin-bottom: 0.9rem;
+}
+.trip-fact { display: flex; justify-content: space-between; padding: 0.42rem 0; border-bottom: 1px solid var(--border); font-size: 0.84rem; }
+.trip-fact:last-child { border-bottom: none; }
+.fact-key { color: var(--dusty); }
+.fact-val { font-weight: 500; color: var(--ink); text-align: right; max-width: 60%; }
+.fact-val a { color: var(--terracotta); text-decoration: none; }
+.fact-val a:hover { text-decoration: underline; }
+
+.plan-cta { background: var(--terracotta); border-radius: 1.2rem; padding: 1.4rem; text-align: center; margin-bottom: 1.1rem; }
+.plan-cta h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-weight: 700; margin-bottom: 0.35rem; }
+.plan-cta p { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 0.9rem; line-height: 1.5; }
+.btn-plan {
+  display: block; background: white; color: var(--terracotta);
+  padding: 0.65rem 1rem; border-radius: 2rem; text-decoration: none;
+  font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+}
+.btn-plan:hover { background: var(--cream); }
+
+.toc-link {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.83rem; color: var(--dusty); padding: 0.32rem 0;
+  text-decoration: none; border-bottom: 1px solid rgba(140,123,107,0.1); transition: color 0.2s;
+}
+.toc-link:last-child { border-bottom: none; }
+.toc-link:hover { color: var(--terracotta); }
+.toc-link::before { content: '·'; color: var(--terracotta); font-weight: 700; }
+
+.post-footer-section { background: var(--ink); padding: 4rem 5rem; margin-top: 2rem; }
+.post-footer-inner { max-width: 820px; margin: 0 auto; }
+.author-block {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(245,240,232,0.1); margin-bottom: 3rem;
+}
+.author-avatar {
+  width: 4.5rem; height: 4.5rem; border-radius: 50%; flex-shrink: 0;
+  background: rgba(201,168,76,0.15); border: 2px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+}
+.author-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.25rem; }
+.author-title { font-size: 0.76rem; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.author-info p { font-size: 0.86rem; color: rgba(245,240,232,0.42); line-height: 1.6; font-family: 'Lora', serif; font-style: italic; }
+.more-stories h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 1.4rem; }
+.more-link {
+  display: flex; align-items: center; gap: 1rem; padding: 1rem;
+  background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.08);
+  border-radius: 0.85rem; text-decoration: none; color: var(--cream);
+  transition: background 0.2s; margin-bottom: 0.7rem;
+}
+.more-link:hover { background: rgba(245,240,232,0.08); }
+.more-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+.more-link-text strong { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 0.1rem; }
+.more-link-text span { font-size: 0.76rem; color: rgba(245,240,232,0.38); }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 1.5rem 3rem; }
+  .article-wrap { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+  .article-sidebar { position: static; }
+  .image-pair { grid-template-columns: 1fr; }
+  .post-footer-section { padding: 3rem 1.5rem; }
+  .author-block { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Gripsters<span>Guide</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Plan a Trip</a></li>
+    <li><a href="on-the-road.html" class="active">On the Road</a></li>
+    <li><a href="index.html">How It Works</a></li>
+    <li><a href="index.html" class="nav-cta">Start Planning</a></li>
+  </ul>
+</nav>
+
+<header class="post-hero">
+  <img class="hero-img" src="Mat2.jpg" alt="The mighty Matterhorn and adjacent ranges from the viewing platform on Klein Matterhorn.">
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="on-the-road.html">On the Road</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Switzerland</span>
+      <span class="breadcrumb-sep">/</span>
+      <span>The Matterhorn</span>
+    </div>
+    <div class="hero-kicker">Switzerland · January 2025 · Zermatt & Täsch</div>
+    <h1 class="hero">The <em>Matterhorn</em></h1>
+    <div class="hero-meta">
+      <div class="hero-byline">By <strong>The Gripsters</strong> · January 2025 · 9 min read</div>
+      <span class="hero-tag">🏔️ Alpine</span>
+      <span class="hero-tag">🚡 Gondola</span>
+      <span class="hero-tag">🍫 Food</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article class="article-body">
+
+    <p class="article-intro">It was a glorious morning when we woke from our slumbers at the Hotel Täscherhof. Not only did we wake up fully charged and ready to go, but our handwashed clothes had dried overnight on the heated bathroom floor and the towel warmer. Even the milk on the balcony hadn't frozen solid. As we were leaving to catch the shuttle we took a quick peek at the buffet breakfast and decided that we'd hook in for brekky the next day.</p>
+
+    <div class="day-header">
+      <span class="day-pill">Day 5</span>
+      <div class="day-title">Zermatt & Klein Matterhorn</div>
+    </div>
+
+    <p>Less than thirty minutes after leaving the hotel we were in Zermatt. As we wandered through town we were staggered at the overwhelming number of designer stores that lined the streets. Jewellery, watches, inadvisable fashion items for such a cold location, and the odd shop full of tourist tat, tempted the passing stream of humanity. This all counted for nought when we suddenly caught a glimpse of the magnificent Matterhorn. It is absolutely spectacular and according to many of our friends who travelled before us, we were lucky that the weather was clear.</p>
+
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Mat12.jpg" alt="Our first glimpse of the Matterhorn.">
+        <figcaption>Our first glimpse of the Matterhorn.</figcaption>
+      </figure>
+      <figure class="post-image">
+        <img src="Mat6.jpg" alt="The main street of Zermatt may certainly look very appealing, however it did little for us when it came to shopping.">
+        <figcaption>The main street of Zermatt may certainly look very appealing, however it did little for us when it came to shopping.</figcaption>
+      </figure>
+    </div>
+
+    <p>There is a saying in Australia that has to do with fornicating with spiders, but the more polite variant is 'we're not here for a haircut.' We had already decided that we would catch the Matterhorn Glacier Paradise up to the top of Klein Matterhorn, and it was worth every franc of the 190 CHF we spent.</p>
+
+    <p>The trip from Zermatt to the peak takes 40 minutes, don't worry this is not a legs dangling experience, you'll be in one of the heated cabins. You do have to change midway up at Trockener Steg, which helps you keep the blood circulating.</p>
+
+    <figure class="post-image street-photo">
+      <div class="street-photo-wrap">
+        <img src="Swiss28.jpg" alt="No fear for three.">
+        <a href="https://www.flickr.com/photos/othdesign/54548504750/in/dateposted-public/" target="_blank" rel="noopener" class="photo-credit">📷 Photo by Mark Logan</a>
+      </div>
+      <figcaption>No fear for three.</figcaption>
+    </figure>
+
+    <p>Our first stop once we reached the top was the viewing platform. As we lined up for the lift that takes you to the platform, one of the guides accompanying some American students warned them that they may experience a few symptoms of high altitude, including dizziness, breathlessness and nausea.</p>
+
+    <p>Mark was thinking that 'these yanks must be soft' but he had to eat his words as soon as the doors opened and we stepped out into the -17c face-slapping cold. Within a few steps Mark was reaching for the handrails and was regretting all those ciggies he had when he was a younger man. Breathless and dizzy we made our way around the platform exchanging our phones and cameras with complete strangers for something better than the obligatory Matterhorn selfie.</p>
+
+    <figure class="post-image">
+      <img src="Mat7.JPEG" alt="The platform was full of people outfitted for the cold far better than we were. Except for Jesus, I bet he was cold.">
+      <figcaption>The platform was full of people outfitted for the cold far better than we were. Except for Jesus, I bet he was cold.</figcaption>
+    </figure>
+
+    <p>As we stood there taking in the 38 peaks that were greater than 4,000 metres, the 13 glaciers and three countries, we noticed a young man clambering out over the rails and onto some sort of gantry that hung over the edge. He was from that moment on known as 'That crazy young guy.' We then saw a couple with their dog on the platform. The poor hound had his tail tucked firmly between his legs and was shivering undoubtedly from both fear and cold.</p>
+
+    <p>With Mark fearing that his glasses would adhere to his face, we went down to the cafe and ordered two hot chocolates and a cinnamon bun. We spoke to two young German guys who happened to be studying medicine. One of them asked us to look at our fingernails and pointed out how the quick, that moon shaped area at the base of your nails, had a slight purple tinge to it, a sign, he said, of oxygen depletion.</p>
+
+    <figure class="post-image">
+      <img src="Mat8.jpg" alt="The best hot chocolate we'd ever had, until we went to the Chocolate Museum in Cologne.">
+      <figcaption>The best hot chocolate we'd ever had, until we went to the Chocolate Museum in Cologne.</figcaption>
+    </figure>
+
+    <p>As we continued talking the conversation came around to 'That crazy young man' hanging from the gantry above. Turns out it was one of them and he also enjoys nothing more than plummeting down a mountain on two planks of wood while directing his travels with two twigs. We blame oxygen deprivation.</p>
+
+    <p>After the restorative hot cocoa and delicious bun, we wandered into the Cinema Lounge and watched the film showing people even crazier than 'That crazy young guy.' climbing along the ridges and peaks surrounding Klein Matterhorn.</p>
+
+    <p>Then it was down into the glacier itself and the Glacier Palace where we were amazed at some of the ice works on display. Carved out of the glacial ice, these sculptures not only represent the creativity and ingenuity of humanity, but the strength and awe that is mother nature. If you're concerned about altitude sickness, it's a good place to acclimatise before heading out onto the platform.</p>
+
+    <div class="image-pair">
+      <figure class="post-image">
+        <img src="Mat3.jpg" alt="As the gondola descends, the clouds roll in and you also get a different angle of the Matterhorn.">
+        <figcaption>As the gondola descends, the clouds roll in and you also get a different angle of the Matterhorn.</figcaption>
+      </figure>
+      <figure class="post-image street-photo">
+        <div class="street-photo-wrap">
+          <img src="Swiss24.jpg" alt="Zermatt from Trockener Steg.">
+          <a href="https://www.flickr.com/photos/othdesign/54548399368/in/dateposted-public/" target="_blank" rel="noopener" class="photo-credit">📷 Photo by Mark Logan</a>
+        </div>
+        <figcaption>Zermatt from Trockener Steg.</figcaption>
+      </figure>
+    </div>
+
+    <p>Once we had seen everything at the top we descended back down to ICE Buffet at the Trockener Steg station where once again we had Goulash soup with bread. Mark had a great time taking photos of the skiers on the mountain and those taking a break for a smoke or vape outside.</p>
+
+    <figure class="post-image">
+      <img src="Mat9.jpg" alt="The vast ICE Buffet was the perfect place to tide us over until dinner.">
+      <figcaption>The vast ICE Buffet was the perfect place to tide us over until dinner.</figcaption>
+    </figure>
+
+    <p>With our reservation at Hotel Täscherhof lined up we eschewed some of the temptations wafting out of the restaurants and bars in Zermatt and fortified ourselves for a feast.</p>
+
+    <p>What we had not noticed before now, and it was something that we paid a lot of attention to afterwards, was the provenance of the food we were being invited to eat. It shook us to discover that restaurants list where their meat comes from. The 'Fisch and Fleischdeklaration' listed that the only local meats to come from Switzerland were the pork and veal, with Germany also supplying pork. The beef was from Paraguay, the chicken was from Brazil, the fish from Norway and the lamb from either New Zealand or Australia.</p>
+
+    <figure class="post-image street-photo">
+      <div class="street-photo-wrap">
+        <img src="Swiss23.jpg" alt="Remembering perhaps those who may not have made it back down alive.">
+        <a href="https://www.flickr.com/photos/othdesign/54548343944/in/dateposted-public/" target="_blank" rel="noopener" class="photo-credit">📷 Photo by Mark Logan</a>
+      </div>
+      <figcaption>Remembering perhaps those who may not have made it back down alive.</figcaption>
+    </figure>
+
+    <p>Despite the fact that we love cooking, we've never been fondue people - it all seems too much like hard work, and possibly far too unhealthy. Not being afraid of concerns such as high cholesterol or an expanding waistline, we shared the fondue and added a superb pork schnitzel. At 80 CHF including wine and beer as well as biblical quantities of bread and potatoes, it was unsurprising that all the locals were there.</p>
+
+    <figure class="post-image">
+      <img src="Mat11.jpg" alt="It's nothing gourmet, but the meals at places like Hotel Täscherhof just fit so well into your sense of place.">
+      <figcaption>It's nothing gourmet, but the meals at places like Hotel Täscherhof just fit so well into your sense of place.</figcaption>
+    </figure>
+
+    <p>It was so enjoyable that we really lashed out and enjoyed a hearty breakfast the next morning, and we were lucky we did, because that was some adventure.</p>
+
+    <div class="article-tags">
+      <span class="article-tag">Matterhorn</span>
+      <span class="article-tag">Zermatt</span>
+      <span class="article-tag">Switzerland</span>
+      <span class="article-tag">Klein Matterhorn</span>
+      <span class="article-tag">Alpine</span>
+      <span class="article-tag">Independent travel</span>
+      <span class="article-tag">Winter travel</span>
+    </div>
+
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="plan-cta">
+      <h4>Planning a Swiss trip?</h4>
+      <p>Let our AI planner build an itinerary around your pace and budget.</p>
+      <a href="index.html" class="btn-plan">Plan my Switzerland trip →</a>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Zermatt at a glance</div>
+      <div class="trip-fact"><span class="fact-key">When</span><span class="fact-val">January 2025</span></div>
+      <div class="trip-fact"><span class="fact-key">Base</span><span class="fact-val">Täsch (quieter & cheaper)</span></div>
+      <div class="trip-fact"><span class="fact-key">Shuttle</span><span class="fact-val">Every 20 mins, 12 min ride</span></div>
+      <div class="trip-fact"><span class="fact-key">Gondola cost</span><span class="fact-val">190 CHF return</span></div>
+      <div class="trip-fact"><span class="fact-key">Top temperature</span><span class="fact-val">-17°C — dress accordingly</span></div>
+      <div class="trip-fact"><span class="fact-key">Dinner</span><span class="fact-val">Fondue & schnitzel, 80 CHF</span></div>
+      <div class="trip-fact"><span class="fact-key">Stayed at</span><span class="fact-val"><a href="https://www.taescherhof.ch/" target="_blank">Hotel Täscherhof</a></span></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">In this post</div>
+      <a href="#" class="toc-link">Zermatt & the Matterhorn</a>
+      <a href="#" class="toc-link">The gondola to Klein Matterhorn</a>
+      <a href="#" class="toc-link">The viewing platform</a>
+      <a href="#" class="toc-link">Hot chocolate & the Germans</a>
+      <a href="#" class="toc-link">Glacier Palace</a>
+      <a href="#" class="toc-link">ICE Buffet at Trockener Steg</a>
+      <a href="#" class="toc-link">Fondue at Hotel Täscherhof</a>
+    </div>
+  </aside>
+</div>
+
+<div class="post-footer-section">
+  <div class="post-footer-inner">
+    <div class="author-block">
+      <div class="author-avatar">✈️</div>
+      <div class="author-info">
+        <h4>The Gripsters</h4>
+        <div class="author-title">On the Road · Gripsters Guide</div>
+        <p>Independent travellers, occasional Aldi shoppers, firm believers that the best meal of any trip is usually found by following the students. We write honestly about where we go, what it costs, and what's actually worth your time.</p>
+      </div>
+    </div>
+    <div class="more-stories">
+      <h3>More from On the Road</h3>
+      <a href="post-glacierexpress.html" class="more-link">
+        <div class="more-link-icon">🚂</div>
+        <div class="more-link-text">
+          <strong>Previous: The Glacier Express</strong>
+          <span>St Moritz to Täsch</span>
+        </div>
+      </a>
+      <a href="on-the-road.html" class="more-link">
+        <div class="more-link-icon">🗺️</div>
+        <div class="more-link-text">
+          <strong>All travel stories</strong>
+          <span>Back to the On the Road archive</span>
+        </div>
+      </a>
+      <a href="index.html" class="more-link">
+        <div class="more-link-icon">🤖</div>
+        <div class="more-link-text">
+          <strong>Inspired? Plan your own Swiss trip</strong>
+          <span>Use our AI planner to build an itinerary around you</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
